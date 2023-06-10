@@ -1,9 +1,11 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import reducer, { initState } from './reducers';
+import React, { useReducer, useRef, useCallback, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import ga from 'react-ga';
-
+import startUpSound from 'assets/sounds/windows-xp-startup.mp3';
 import {
+  ADD_ICON,
   ADD_APP,
   DEL_APP,
   FOCUS_APP,
@@ -16,6 +18,7 @@ import {
   END_SELECT,
   POWER_OFF,
   CANCEL_POWER_OFF,
+  CANCEL_LOGIN,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
 import { defaultIconState, defaultAppState, appSettings } from './apps';
@@ -23,161 +26,10 @@ import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
 import Icons from './Icons';
+import Login from './Login';
 import { DashedBox } from 'components';
+import welcomeImage from 'assets/welcome.png';
 
-const initState = {
-  apps: defaultAppState,
-  nextAppID: defaultAppState.length,
-  nextZIndex: defaultAppState.length,
-  focusing: FOCUSING.WINDOW,
-  icons: defaultIconState,
-  selecting: false,
-  powerState: POWER_STATE.START,
-};
-const reducer = (state, action = { type: '' }) => {
-  ga.event({
-    category: 'XP interaction',
-    action: action.type,
-  });
-  switch (action.type) {
-    case ADD_APP:
-      const app = state.apps.find(
-        _app => _app.component === action.payload.component,
-      );
-      if (action.payload.multiInstance || !app) {
-        return {
-          ...state,
-          apps: [
-            ...state.apps,
-            {
-              ...action.payload,
-              id: state.nextAppID,
-              zIndex: state.nextZIndex,
-            },
-          ],
-          nextAppID: state.nextAppID + 1,
-          nextZIndex: state.nextZIndex + 1,
-          focusing: FOCUSING.WINDOW,
-        };
-      }
-      const apps = state.apps.map(app =>
-        app.component === action.payload.component
-          ? { ...app, zIndex: state.nextZIndex, minimized: false }
-          : app,
-      );
-      return {
-        ...state,
-        apps,
-        nextZIndex: state.nextZIndex + 1,
-        focusing: FOCUSING.WINDOW,
-      };
-    case DEL_APP:
-      if (state.focusing !== FOCUSING.WINDOW) return state;
-      return {
-        ...state,
-        apps: state.apps.filter(app => app.id !== action.payload),
-        focusing:
-          state.apps.length > 1
-            ? FOCUSING.WINDOW
-            : state.icons.find(icon => icon.isFocus)
-            ? FOCUSING.ICON
-            : FOCUSING.DESKTOP,
-      };
-    case FOCUS_APP: {
-      const apps = state.apps.map(app =>
-        app.id === action.payload
-          ? { ...app, zIndex: state.nextZIndex, minimized: false }
-          : app,
-      );
-      return {
-        ...state,
-        apps,
-        nextZIndex: state.nextZIndex + 1,
-        focusing: FOCUSING.WINDOW,
-      };
-    }
-    case MINIMIZE_APP: {
-      if (state.focusing !== FOCUSING.WINDOW) return state;
-      const apps = state.apps.map(app =>
-        app.id === action.payload ? { ...app, minimized: true } : app,
-      );
-      return {
-        ...state,
-        apps,
-        focusing: FOCUSING.WINDOW,
-      };
-    }
-    case TOGGLE_MAXIMIZE_APP: {
-      if (state.focusing !== FOCUSING.WINDOW) return state;
-      const apps = state.apps.map(app =>
-        app.id === action.payload ? { ...app, maximized: !app.maximized } : app,
-      );
-      return {
-        ...state,
-        apps,
-        focusing: FOCUSING.WINDOW,
-      };
-    }
-    case FOCUS_ICON: {
-      const icons = state.icons.map(icon => ({
-        ...icon,
-        isFocus: icon.id === action.payload,
-      }));
-      return {
-        ...state,
-        focusing: FOCUSING.ICON,
-        icons,
-      };
-    }
-    case SELECT_ICONS: {
-      const icons = state.icons.map(icon => ({
-        ...icon,
-        isFocus: action.payload.includes(icon.id),
-      }));
-      return {
-        ...state,
-        icons,
-        focusing: FOCUSING.ICON,
-      };
-    }
-    case FOCUS_DESKTOP:
-      return {
-        ...state,
-        focusing: FOCUSING.DESKTOP,
-        icons: state.icons.map(icon => ({
-          ...icon,
-          isFocus: false,
-        })),
-      };
-    case START_SELECT:
-      return {
-        ...state,
-        focusing: FOCUSING.DESKTOP,
-        icons: state.icons.map(icon => ({
-          ...icon,
-          isFocus: false,
-        })),
-        selecting: action.payload,
-      };
-    case END_SELECT:
-      return {
-        ...state,
-        selecting: null,
-      };
-    case POWER_OFF:
-      return {
-        ...state,
-        powerState: action.payload,
-      };
-    case CANCEL_POWER_OFF:
-      return {
-        ...state,
-        powerState: POWER_STATE.START,
-      };
-    default:
-      return state;
-  }
-};
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
   const ref = useRef(null);
@@ -224,7 +76,26 @@ function WinXP() {
     const appSetting = Object.values(appSettings).find(
       setting => setting.component === component,
     );
-    dispatch({ type: ADD_APP, payload: appSetting });
+    if (appSetting.component.name === 'SmartChild') {
+      if (navigator.userAgent.indexOf('Chrome') > -1) {
+        dispatch({ type: ADD_APP, payload: appSettings.SignIn });
+        /*dispatch({
+          type: ADD_APP,
+          payload: appSettings.SmartChild,
+        });*/
+      } else
+        dispatch({
+          type: ADD_APP,
+          payload: {
+            ...appSettings.Error,
+            injectProps: {
+              message:
+                'Your browser is not Chrome. Please use Chrome browser to start SmartcHild',
+            },
+          },
+        });
+    } else dispatch({ type: ADD_APP, payload: appSetting });
+    console.log('doubleclick', state);
   }
   function getFocusedAppId() {
     if (state.focusing !== FOCUSING.WINDOW) return -1;
@@ -288,12 +159,59 @@ function WinXP() {
   function onModalClose() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
+
+  function onStart() {
+    const userAgent = navigator.userAgent;
+
+    if (state.powerState === POWER_STATE.WELCOME) {
+      try {
+        new Audio(startUpSound).play();
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: CANCEL_POWER_OFF });
+      dispatch({ type: ADD_ICON });
+      console.log('State', state);
+      if (userAgent.indexOf('Chrome') > -1) {
+        dispatch({
+          type: ADD_APP,
+          payload: appSettings.SignIn,
+        });
+      } else
+        dispatch({
+          type: ADD_APP,
+          payload: {
+            ...appSettings.Error,
+            injectProps: {
+              message:
+                'Your browser is not Chrome. Please use Chrome browser to start SmartcHild',
+            },
+          },
+        });
+
+      // dispatch({
+      //   type: ADD_APP,
+      //   payload: appSettings.SmartChild,
+      // });
+    }
+  }
+  function onLogin() {
+    dispatch({ type: CANCEL_LOGIN });
+  }
+  function onSignIn() {
+    dispatch({ type: DEL_APP, payload: focusedAppId });
+    dispatch({
+      type: ADD_APP,
+      payload: appSettings.SmartChild,
+    });
+  }
   return (
     <Container
       ref={ref}
       onMouseUp={onMouseUpDesktop}
       onMouseDown={onMouseDownDesktop}
       state={state.powerState}
+      onAnimationEnd={onStart}
     >
       <Icons
         icons={state.icons}
@@ -313,15 +231,21 @@ function WinXP() {
         onMinimize={onMinimizeWindow}
         onMaximize={onMaximizeWindow}
         focusedAppId={focusedAppId}
+        onSignIn={onSignIn}
       />
-      <Footer
-        apps={state.apps}
-        onMouseDownApp={onMouseDownFooterApp}
-        focusedAppId={focusedAppId}
-        onMouseDown={onMouseDownFooter}
-        onClickMenuItem={onClickMenuItem}
-      />
-      {state.powerState !== POWER_STATE.START && (
+      {state.powerState === POWER_STATE.USER && <Login login={onLogin} />}
+      {state.powerState !== POWER_STATE.WELCOME &&
+        state.powerState !== POWER_STATE.USER && (
+          <Footer
+            apps={state.apps}
+            onMouseDownApp={onMouseDownFooterApp}
+            focusedAppId={focusedAppId}
+            onMouseDown={onMouseDownFooter}
+            onClickMenuItem={onClickMenuItem}
+          />
+        )}
+      {(state.powerState === POWER_STATE.LOG_OFF ||
+        state.powerState === POWER_STATE.TURN_OFF) && (
         <Modal
           onClose={onModalClose}
           onClickButton={onClickModalButton}
@@ -335,6 +259,7 @@ function WinXP() {
 const powerOffAnimation = keyframes`
   0% {
     filter: brightness(1) grayscale(0);
+    
   }
   30% {
     filter: brightness(1) grayscale(0);
@@ -343,10 +268,25 @@ const powerOffAnimation = keyframes`
     filter: brightness(0.6) grayscale(1);
   }
 `;
+const welcomeAnimation = keyframes`
+0% {
+  background: url(${welcomeImage}) no-repeat center center fixed;
+  background-size: cover;
+}
+99% {
+  background: url(${welcomeImage}) no-repeat center center fixed;
+  background-size: cover;
+}
+100% {
+  background: url(https://i.imgur.com/Zk6TR5k.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+`;
 const animation = {
   [POWER_STATE.START]: '',
   [POWER_STATE.TURN_OFF]: powerOffAnimation,
   [POWER_STATE.LOG_OFF]: powerOffAnimation,
+  [POWER_STATE.WELCOME]: welcomeAnimation,
 };
 
 const Container = styled.div`
@@ -355,7 +295,11 @@ const Container = styled.div`
   height: 100%;
   overflow: hidden;
   position: relative;
-  background: url(https://i.imgur.com/Zk6TR5k.jpg) no-repeat center center fixed;
+  background: ${({ state }) =>
+      state.powerState === POWER_STATE.TURN_OFF
+        ? `url(${welcomeImage})`
+        : `url(https://i.imgur.com/Zk6TR5k.jpg)`}
+    no-repeat center center fixed;
   background-size: cover;
   animation: ${({ state }) => animation[state]} 5s forwards;
   *:not(input):not(textarea) {

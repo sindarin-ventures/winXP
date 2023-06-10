@@ -1,3 +1,4 @@
+export const ADD_ICON = 'ADD_ICON';
 export const ADD_APP = 'ADD_APP';
 export const DEL_APP = 'DEL_APP';
 export const FOCUS_APP = 'FOCUS_APP';
@@ -10,3 +11,4 @@ export const START_SELECT = 'START_SELECT';
 export const END_SELECT = 'END_SELECT';
 export const POWER_OFF = 'POWER_OFF';
 export const CANCEL_POWER_OFF = 'CANCEL_POWER_OFF';
+export const CANCEL_LOGIN = 'CANCEL_LOGIN';

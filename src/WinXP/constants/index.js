@@ -7,4 +7,6 @@ export const POWER_STATE = {
   START: 'START',
   LOG_OFF: 'LOG_OFF',
   TURN_OFF: 'TURN_OFF',
+  WELCOME: 'WELCOME',
+  USER: 'USER',
 };

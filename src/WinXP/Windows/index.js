@@ -12,6 +12,7 @@ function Windows({
   onMinimize,
   onMaximize,
   focusedAppId,
+  onSignIn,
 }) {
   return (
     <div style={{ position: 'relative', zIndex: 0 }}>
@@ -25,6 +26,7 @@ function Windows({
           onMouseUpMinimize={onMinimize}
           onMouseUpMaximize={onMaximize}
           isFocus={focusedAppId === app.id} // for styledWindow
+          onSignIn={onSignIn}
           {...app}
         />
       ))}
@@ -43,11 +45,14 @@ const Window = memo(function({
   defaultSize,
   defaultOffset,
   resizable,
+  constraintSizeX,
+  constraintSizeY,
   maximized,
   component,
   zIndex,
   isFocus,
   className,
+  onSignIn,
 }) {
   function _onMouseDown() {
     onMouseDown(id);
@@ -80,6 +85,8 @@ const Window = memo(function({
     },
     resizable,
     resizeThreshold: 10,
+    constraintSizeX,
+    constraintSizeY,
   });
   let width, height, x, y;
   if (maximized) {
@@ -135,6 +142,7 @@ const Window = memo(function({
           onMinimize: _onMouseUpMinimize,
           isFocus,
           ...injectProps,
+          onSignIn: onSignIn,
         })}
       </div>
     </div>

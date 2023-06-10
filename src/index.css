@@ -1,3 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #root {
   height: 100%;
+}
+.EmojiPickerReact {
+  position: absolute !important;
+  z-index: 100 !important;
+  & button {
+    min-width: unset;
+  }
+}
+.chrome-picker {
+  z-index: 100 !important;
+}
+.color-selector {
+  position: relative;
+  display: inline-block;
+  /* position: relative; */
+  
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+  }
+  
+  .hidden-update {
+    position: absolute;
+    opacity: 0;
+  }
 }
