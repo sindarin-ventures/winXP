@@ -171,23 +171,26 @@ function WinXP() {
       }
       dispatch({ type: CANCEL_POWER_OFF });
       dispatch({ type: ADD_ICON });
-      console.log('State', state);
       if (userAgent.indexOf('Chrome') > -1) {
-        dispatch({
-          type: ADD_APP,
-          payload: appSettings.SignIn,
-        });
+        setTimeout(() => {
+          dispatch({
+            type: ADD_APP,
+            payload: appSettings.SignIn,
+          });
+        }, 1500);
       } else
-        dispatch({
-          type: ADD_APP,
-          payload: {
-            ...appSettings.Error,
-            injectProps: {
-              message:
-                'Your browser is not Chrome. Please use Chrome browser to start SmartcHild',
+        setTimeout(() => {
+          dispatch({
+            type: ADD_APP,
+            payload: {
+              ...appSettings.Error,
+              injectProps: {
+                message:
+                  'Your browser is not Chrome. Please use Chrome browser to start SmartcHild',
+              },
             },
-          },
-        });
+          });
+        }, 1500);
 
       // dispatch({
       //   type: ADD_APP,
@@ -200,10 +203,12 @@ function WinXP() {
   }
   function onSignIn() {
     dispatch({ type: DEL_APP, payload: focusedAppId });
-    dispatch({
-      type: ADD_APP,
-      payload: appSettings.SmartChild,
-    });
+    setTimeout(() => {
+      dispatch({
+        type: ADD_APP,
+        payload: appSettings.SmartChild,
+      });
+    }, 1000);
   }
   return (
     <Container

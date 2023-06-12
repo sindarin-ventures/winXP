@@ -11,11 +11,6 @@ function SignIn({ onSignIn, isFocus }) {
   function onClickSignIn() {
     //console.log('here', onSignIn);
     onSignIn();
-    //dispatch({ type: DEL_APP, payload: appSettings.SignIn });
-    dispatch({
-      type: ADD_APP,
-      payload: appSettings.Paint,
-    });
   }
 
   return (

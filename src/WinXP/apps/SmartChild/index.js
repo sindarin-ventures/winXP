@@ -150,6 +150,30 @@ function SmartChild({ onClose, isFocus }) {
       });
     // divRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   }, [chatHistory]);
+
+  useEffect(() => {
+    const startChat = async () => {
+      const newChatHistory = [...chatHistory];
+
+      newChatHistory[length] = [
+        'Hello! How can I assist you today?',
+        'bot',
+        false,
+        false,
+        false,
+        18,
+        '#000000',
+        '#ffffff',
+      ];
+      setChatHistory(newChatHistory);
+      setLength(length + 1);
+      await new Audio(audioOut).play();
+
+      //setIsUserInputEnd(false);
+    };
+    startChat();
+  }, []);
+
   return (
     <div
       style={{

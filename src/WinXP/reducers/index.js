@@ -28,7 +28,6 @@ export const initState = {
   powerState: POWER_STATE.USER,
 };
 const reducer = (state = initState, action = { type: '' }) => {
-  console.log(state);
   ga.event({
     category: 'XP interaction',
     action: action.type,
@@ -43,7 +42,6 @@ const reducer = (state = initState, action = { type: '' }) => {
       const app = state.apps.find(
         _app => _app.component === action.payload.component,
       );
-      console.log(app);
       if (action.payload.multiInstance || !app) {
         return {
           ...state,
