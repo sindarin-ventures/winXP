@@ -29,6 +29,7 @@ import loginsound from 'assets/sounds/loginsound.mp3';
 // add child div to capture mouse event when not focused
 
 function SmartChild({ onClose, isFocus }) {
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
     'user',
@@ -154,8 +155,11 @@ function SmartChild({ onClose, isFocus }) {
 
   useEffect(() => {
     const startChat = async () => {
+      await new Audio(loginsound).play();
       const newChatHistory = [...chatHistory];
-
+      console.log('here');
+      await delay(1500);
+      console.log('here1');
       newChatHistory[length] = [
         'Hello! How can I assist you today?',
         'bot',
@@ -166,9 +170,11 @@ function SmartChild({ onClose, isFocus }) {
         '#000000',
         '#ffffff',
       ];
+
       setChatHistory(newChatHistory);
+      await new Audio(audioOut).play();
+
       setLength(length + 1);
-      await new Audio(loginsound).play();
 
       //setIsUserInputEnd(false);
     };

@@ -199,11 +199,6 @@ function WinXP() {
 
   function onStart() {
     if (state.powerState === POWER_STATE.WELCOME) {
-      try {
-        new Audio(startUpSound).play();
-      } catch (e) {
-        console.log(e);
-      }
       dispatch({ type: CANCEL_POWER_OFF });
 
       // dispatch({
@@ -214,6 +209,7 @@ function WinXP() {
   }
   function onLogin() {
     dispatch({ type: CANCEL_LOGIN });
+    new Audio(startUpSound).play();
   }
   function onSignIn() {
     dispatch({ type: DEL_APP, payload: focusedAppId });
@@ -319,7 +315,7 @@ const Container = styled.div`
         : `url(https://i.imgur.com/Zk6TR5k.jpg)`}
     no-repeat center center fixed;
   background-size: cover;
-  animation: ${({ state }) => animation[state]} 5s forwards;
+  animation: ${({ state }) => animation[state]} 3s forwards;
   *:not(input):not(textarea) {
     user-select: none;
   }
