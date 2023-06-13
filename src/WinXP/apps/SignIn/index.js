@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import signInImage from 'assets/login.png';
 import loading from 'assets/login/loading.png';
+import loadingsound from 'assets/sounds/loadingsound.mp3';
 // add child div to capture mouse event when not focused
 // import store from '../../../store';
 
@@ -9,13 +10,16 @@ function SignIn({ onSignIn, isFocus }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   useEffect(() => {
     const loadingStart = async () => {
+      const loadingss = new Audio(loadingsound);
       await delay(1000);
       setLoadingState(1);
-      await delay(1000);
+      loadingss.play();
+      await delay(2000);
       setLoadingState(2);
-      await delay(1000);
+      await delay(2000);
       setLoadingState(3);
-      await delay(1000);
+      await delay(2000);
+      loadingss.pause();
       onSignIn();
     };
     loadingStart();

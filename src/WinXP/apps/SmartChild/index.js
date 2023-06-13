@@ -24,6 +24,7 @@ import videoIcon from 'assets/smartchild/video.png';
 import warningIcon from 'assets/smartchild/warning.png';
 import audioOut from 'assets/sounds/aim-outgoing.mp3';
 import audioIn from 'assets/sounds/aim-incoming.mp3';
+import loginsound from 'assets/sounds/loginsound.mp3';
 
 // add child div to capture mouse event when not focused
 
@@ -167,7 +168,7 @@ function SmartChild({ onClose, isFocus }) {
       ];
       setChatHistory(newChatHistory);
       setLength(length + 1);
-      await new Audio(audioOut).play();
+      await new Audio(loginsound).play();
 
       //setIsUserInputEnd(false);
     };

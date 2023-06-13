@@ -20,13 +20,13 @@ import paintLarge from 'assets/windowsIcons/680(32x32).png';
 import paint from 'assets/windowsIcons/680(16x16).png';
 import smartChildIcon from 'assets/smartchild/logo.png';
 
-const gen = () => {
-  let id = -1;
-  return () => {
-    id += 1;
-    return id;
-  };
-};
+// const gen = () => {
+//   let id = -1;
+//   return () => {
+//     id += 1;
+//     return id;
+//   };
+// };
 // const genId = gen();
 // const genIndex = gen();
 export const defaultAppState = [

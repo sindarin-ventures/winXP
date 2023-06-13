@@ -12,3 +12,4 @@ export const END_SELECT = 'END_SELECT';
 export const POWER_OFF = 'POWER_OFF';
 export const CANCEL_POWER_OFF = 'CANCEL_POWER_OFF';
 export const CANCEL_LOGIN = 'CANCEL_LOGIN';
+export const RESTART = 'RESTART';

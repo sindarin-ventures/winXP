@@ -1,5 +1,5 @@
 import reducer, { initState } from './reducers';
-import React, { useReducer, useRef, useCallback } from 'react';
+import React, { useReducer, useRef, useCallback, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import startUpSound from 'assets/sounds/windows-xp-startup.mp3';
@@ -18,6 +18,7 @@ import {
   POWER_OFF,
   CANCEL_POWER_OFF,
   CANCEL_LOGIN,
+  RESTART,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
 import { appSettings } from './apps';
@@ -77,7 +78,13 @@ function WinXP() {
     );
     if (appSetting.component.name === 'SmartChild') {
       if (navigator.userAgent.indexOf('Chrome') > -1) {
-        dispatch({ type: ADD_APP, payload: appSettings.SignIn });
+        if (localStorage.getItem('isLoggedIn') === 'true')
+          dispatch({
+            type: ADD_APP,
+            payload: appSettings.SmartChild,
+          });
+        else dispatch({ type: ADD_APP, payload: appSettings.SignIn });
+
         /*dispatch({
           type: ADD_APP,
           payload: appSettings.SmartChild,
@@ -149,34 +156,31 @@ function WinXP() {
     [dispatch],
   );
   function onClickModalButton(text) {
-    dispatch({ type: CANCEL_POWER_OFF });
-    dispatch({
-      type: ADD_APP,
-      payload: appSettings.Error,
-    });
+    dispatch({ type: DEL_APP, payload: focusedAppId });
+    dispatch({ type: RESTART });
   }
   function onModalClose() {
     dispatch({ type: CANCEL_POWER_OFF });
   }
-
-  function onStart() {
-    const userAgent = navigator.userAgent;
-
-    if (state.powerState === POWER_STATE.WELCOME) {
-      try {
-        new Audio(startUpSound).play();
-      } catch (e) {
-        console.log(e);
-      }
-      dispatch({ type: CANCEL_POWER_OFF });
+  useEffect(() => {
+    if (state.powerState === POWER_STATE.START) {
+      const userAgent = navigator.userAgent;
       dispatch({ type: ADD_ICON });
       if (userAgent.indexOf('Chrome') > -1) {
-        setTimeout(() => {
-          dispatch({
-            type: ADD_APP,
-            payload: appSettings.SignIn,
-          });
-        }, 1500);
+        if (localStorage.getItem('isLoggedIn') === 'true')
+          setTimeout(() => {
+            dispatch({
+              type: ADD_APP,
+              payload: appSettings.SmartChild,
+            });
+          }, 1500);
+        else
+          setTimeout(() => {
+            dispatch({
+              type: ADD_APP,
+              payload: appSettings.SignIn,
+            });
+          }, 1500);
       } else
         setTimeout(() => {
           dispatch({
@@ -190,6 +194,17 @@ function WinXP() {
             },
           });
         }, 1500);
+    }
+  }, [state.powerState]);
+
+  function onStart() {
+    if (state.powerState === POWER_STATE.WELCOME) {
+      try {
+        new Audio(startUpSound).play();
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: CANCEL_POWER_OFF });
 
       // dispatch({
       //   type: ADD_APP,
@@ -206,6 +221,7 @@ function WinXP() {
       type: ADD_APP,
       payload: appSettings.SmartChild,
     });
+    localStorage.setItem('isLoggedIn', 'true');
   }
   return (
     <Container

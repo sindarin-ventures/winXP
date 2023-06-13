@@ -15,6 +15,7 @@ import {
   POWER_OFF,
   CANCEL_POWER_OFF,
   CANCEL_LOGIN,
+  RESTART,
 } from '../constants/actions';
 import { FOCUSING, POWER_STATE } from '../constants';
 
@@ -25,7 +26,10 @@ export const initState = {
   focusing: FOCUSING.WINDOW,
   icons: [],
   selecting: false,
-  powerState: POWER_STATE.USER,
+  powerState:
+    localStorage.getItem('isLoggedIn') === 'true'
+      ? POWER_STATE.START
+      : POWER_STATE.USER,
 };
 const reducer = (state = initState, action = { type: '' }) => {
   ga.event({
@@ -176,6 +180,14 @@ const reducer = (state = initState, action = { type: '' }) => {
       return {
         ...state,
         powerState: POWER_STATE.WELCOME,
+      };
+    case RESTART:
+      localStorage.setItem('isLoggedIn', 'false');
+      return {
+        ...state,
+        apps: defaultAppState,
+        icons: [],
+        powerState: POWER_STATE.USER,
       };
     default:
       return state;
