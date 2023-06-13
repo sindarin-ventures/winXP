@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import logo1 from 'assets/login/logo (1).png';
 import group2 from 'assets/login/Group 2.png';

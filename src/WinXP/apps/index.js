@@ -27,8 +27,8 @@ const gen = () => {
     return id;
   };
 };
-const genId = gen();
-const genIndex = gen();
+// const genId = gen();
+// const genIndex = gen();
 export const defaultAppState = [
   // {
   //   component: InternetExplorer,

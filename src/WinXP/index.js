@@ -1,8 +1,7 @@
 import reducer, { initState } from './reducers';
-import React, { useReducer, useRef, useCallback, useEffect } from 'react';
+import React, { useReducer, useRef, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
-import ga from 'react-ga';
 import startUpSound from 'assets/sounds/windows-xp-startup.mp3';
 import {
   ADD_ICON,
@@ -21,7 +20,7 @@ import {
   CANCEL_LOGIN,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
-import { defaultIconState, defaultAppState, appSettings } from './apps';
+import { appSettings } from './apps';
 import Modal from './Modal';
 import Footer from './Footer';
 import Windows from './Windows';
