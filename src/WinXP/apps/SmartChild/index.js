@@ -158,7 +158,7 @@ function SmartChild({ onClose, isFocus }) {
       await new Audio(loginsound).play();
       const newChatHistory = [...chatHistory];
       console.log('here');
-      await delay(1500);
+      await delay(200);
       console.log('here1');
       newChatHistory[length] = [
         'Hello! How can I assist you today?',
