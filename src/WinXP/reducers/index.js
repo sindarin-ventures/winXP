@@ -16,6 +16,7 @@ import {
   CANCEL_POWER_OFF,
   CANCEL_LOGIN,
   RESTART,
+  DEL_APP_COMPONENT,
 } from '../constants/actions';
 import { FOCUSING, POWER_STATE } from '../constants';
 
@@ -84,6 +85,14 @@ const reducer = (state = initState, action = { type: '' }) => {
             : state.icons.find(icon => icon.isFocus)
             ? FOCUSING.ICON
             : FOCUSING.DESKTOP,
+      };
+    case DEL_APP_COMPONENT:
+      return {
+        ...state,
+        apps: state.apps.filter(
+          app => app.component !== action.payload.component,
+        ),
+        focusing: FOCUSING.DESKTOP,
       };
     case FOCUS_APP: {
       const apps = state.apps.map(app =>

@@ -19,6 +19,7 @@ import {
   CANCEL_POWER_OFF,
   CANCEL_LOGIN,
   RESTART,
+  DEL_APP_COMPONENT,
 } from './constants/actions';
 import { FOCUSING, POWER_STATE } from './constants';
 import { appSettings } from './apps';
@@ -212,7 +213,8 @@ function WinXP() {
     new Audio(startUpSound).play();
   }
   function onSignIn() {
-    dispatch({ type: DEL_APP, payload: focusedAppId });
+    dispatch({ type: DEL_APP_COMPONENT, payload: appSettings.SignIn });
+    //dispatch({ type: DEL_APP, payload: focusedAppId });
     dispatch({
       type: ADD_APP,
       payload: appSettings.SmartChild,

@@ -13,3 +13,4 @@ export const POWER_OFF = 'POWER_OFF';
 export const CANCEL_POWER_OFF = 'CANCEL_POWER_OFF';
 export const CANCEL_LOGIN = 'CANCEL_LOGIN';
 export const RESTART = 'RESTART';
+export const DEL_APP_COMPONENT = 'DEL_APP_COMPONENT';
