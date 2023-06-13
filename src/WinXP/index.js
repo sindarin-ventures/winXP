@@ -203,12 +203,10 @@ function WinXP() {
   }
   function onSignIn() {
     dispatch({ type: DEL_APP, payload: focusedAppId });
-    setTimeout(() => {
-      dispatch({
-        type: ADD_APP,
-        payload: appSettings.SmartChild,
-      });
-    }, 1000);
+    dispatch({
+      type: ADD_APP,
+      payload: appSettings.SmartChild,
+    });
   }
   return (
     <Container
