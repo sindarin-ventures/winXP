@@ -18,22 +18,33 @@ const handler = async (event, context) => {
     const database = (await clientPromise).db(process.env.MONGODB_DATABASE);
     const collection = database.collection(process.env.MONGODB_COLLECTION);
     const document = await collection.findOne({ ip: ip });
-
+    const temp = new Date().getTime() - 5 * 60 * 1000;
+    const late = await collection.find({ time: { $gte: temp } }).toArray();
+    console.log(late.length);
+    if (late && late.length > 100)
+      return {
+        statusCode: 200,
+        body: JSON.stringify(
+          'Try 1 mins later. Too many users at this moment.',
+        ),
+      };
     if (document) {
       await collection.findOneAndUpdate(
         { ip: ip },
         { $inc: { count: 1 } },
         { new: true },
       );
-      console.log(document.count);
       if (document.count > 30)
         return {
           statusCode: 200,
           body: JSON.stringify('Count limited'),
         };
     } else {
-      console.log('not exist');
-      await collection.insertOne({ ip: ip, count: 1 });
+      await collection.insertOne({
+        ip: ip,
+        count: 1,
+        time: new Date().getTime(),
+      });
     }
 
     const message = datatext.map(i => {

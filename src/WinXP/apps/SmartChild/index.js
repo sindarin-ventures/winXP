@@ -89,6 +89,7 @@ function SmartChild({ onClose, isFocus }) {
       method: 'GET',
     });*/
     const apiURL = '/.netlify/functions/generateText';
+
     const response = await fetch(apiURL, {
       method: 'POST',
       body: JSON.stringify({
@@ -370,6 +371,7 @@ function SmartChild({ onClose, isFocus }) {
                 height: '100px',
                 paddingBottom: '70px',
               }}
+              disabled={isUserInputEnd}
             />
           </div>
           <div className="mt-6 flex gap-4 border-2 border-[#cfcdbebf] p-1">
