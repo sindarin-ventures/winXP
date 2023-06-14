@@ -158,7 +158,7 @@ function SmartChild({ onClose, isFocus }) {
       await new Audio(loginsound).play();
       const newChatHistory = [...chatHistory];
       console.log('here');
-      await delay(200);
+      await delay(700);
       console.log('here1');
       newChatHistory[length] = [
         'Hello! How can I assist you today?',
@@ -401,7 +401,7 @@ function SmartChild({ onClose, isFocus }) {
               <img
                 src={sendIcon}
                 alt="send"
-                className="h-16 w-16 hover:cursor-pointer hover:shadow-[1px_1px_0px_1px_#4a5568]"
+                className="h-16 w-[85px] hover:cursor-pointer hover:shadow-[1px_1px_0px_1px_#4a5568]"
                 onClick={addHistory}
               />
             </div>
