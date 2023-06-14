@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import Picker from 'emoji-picker-react';
+import axios from 'axios';
 import addpeopleIcon from 'assets/smartchild/addpeople.png';
 import bgcolorIcon from 'assets/smartchild/bgcolor.png';
 import bigfontIcon from 'assets/smartchild/bigfont.png';
@@ -48,6 +49,7 @@ function SmartChild({ onClose, isFocus }) {
   const [chatHistory, setChatHistory] = useState(defaultHistory);
 
   const [totalText, setTotalText] = useState([]);
+  const [ipAddress, setIpAddress] = useState('');
   const [isUserInputEnd, setIsUserInputEnd] = useState(false);
   const [fontSize, setFontSize] = useState(18);
   const [isBold, setIsBold] = useState(false);
@@ -78,12 +80,21 @@ function SmartChild({ onClose, isFocus }) {
   const answerChat = async () => {
     // console.log("Answer Chat");
     const newChatHistory = [...chatHistory];
+    //const apiURL = '/.netlify/functions/generateText', {params: { datatext: totalText,}}
 
-    const apiURL = `/.netlify/functions/generateText?datatext=${JSON.stringify(
+    /*const apiURL = `/.netlify/functions/generateText?datatext=${JSON.stringify(
       totalText,
-    )}`;
+    )}&ip=${ipAddress}&count=${length}`;
     const response = await fetch(apiURL, {
       method: 'GET',
+    });*/
+    const apiURL = '/.netlify/functions/generateText';
+    const response = await fetch(apiURL, {
+      method: 'POST',
+      body: JSON.stringify({
+        datatext: totalText,
+        ip: ipAddress,
+      }),
     });
     const data = await response.json();
     setTotalText([...totalText, { role: 'assistant', content: data }]);
@@ -157,9 +168,7 @@ function SmartChild({ onClose, isFocus }) {
     const startChat = async () => {
       await new Audio(loginsound).play();
       const newChatHistory = [...chatHistory];
-      console.log('here');
       await delay(700);
-      console.log('here1');
       newChatHistory[length] = [
         'Hello! How can I assist you today?',
         'bot',
@@ -175,6 +184,9 @@ function SmartChild({ onClose, isFocus }) {
       await new Audio(audioOut).play();
 
       setLength(length + 1);
+      const res = await axios.get('https://geolocation-db.com/json/');
+
+      setIpAddress(res.data.IPv4);
 
       //setIsUserInputEnd(false);
     };
