@@ -61,7 +61,7 @@ function SmartChild({ onClose, isFocus }) {
   const divRef = useRef();
 
   const handleChange = event => {
-    setInputValue(event.target.value);
+    if (!isUserInputEnd) setInputValue(event.target.value);
   };
 
   const handleForeChange = event => {
@@ -371,7 +371,6 @@ function SmartChild({ onClose, isFocus }) {
                 height: '100px',
                 paddingBottom: '70px',
               }}
-              disabled={isUserInputEnd}
             />
           </div>
           <div className="mt-6 flex gap-4 border-2 border-[#cfcdbebf] p-1">
