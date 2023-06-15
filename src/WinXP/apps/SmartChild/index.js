@@ -58,10 +58,15 @@ function SmartChild({ onClose, isFocus }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [foreColor, setForeColor] = useState('#000000');
   const [backColor, setBackColor] = useState('#ffffff');
+  const [islimit, setIsLimit] = useState(false);
+  const [mail, setMail] = useState('');
   const divRef = useRef();
 
   const handleChange = event => {
     if (!isUserInputEnd) setInputValue(event.target.value);
+  };
+  const handleChangeEmail = event => {
+    setMail(event.target.value);
   };
 
   const handleForeChange = event => {
@@ -80,6 +85,9 @@ function SmartChild({ onClose, isFocus }) {
   const answerChat = async () => {
     // console.log("Answer Chat");
     const newChatHistory = [...chatHistory];
+    const res = await axios.get('https://geolocation-db.com/json/');
+
+    setIpAddress(res.data.IPv4);
     //const apiURL = '/.netlify/functions/generateText', {params: { datatext: totalText,}}
 
     /*const apiURL = `/.netlify/functions/generateText?datatext=${JSON.stringify(
@@ -111,7 +119,7 @@ function SmartChild({ onClose, isFocus }) {
       '#ffffff',
     ];
     setChatHistory(newChatHistory);
-
+    if (data.trim() == 'Count limited') setIsLimit(true);
     /*if (response.data.choices[0]?.text)
           setTotalText(totalText.concat("A:", response.data.choices[0]?.text));*/
     setLength(length + 1);
@@ -119,6 +127,20 @@ function SmartChild({ onClose, isFocus }) {
 
     setIsUserInputEnd(false);
   };
+
+  const onSaveEmail = async () => {
+    const apiURL = '/.netlify/functions/saveEmail';
+
+    const response = await fetch(apiURL, {
+      method: 'POST',
+      body: JSON.stringify({
+        ip: ipAddress,
+        email: mail,
+      }),
+    });
+    const data = await response.json();
+  };
+
   const addHistory = async event => {
     if (inputValue === '') return;
     event.preventDefault();
@@ -203,6 +225,31 @@ function SmartChild({ onClose, isFocus }) {
         backgroundColor: '#ece9d8',
       }}
     >
+      {islimit && (
+        <div className="absolute h-full w-full bg-slate-700 z-10 flex flex-col justify-center items-center">
+          <p className="text-white text-xl">Count limited! </p>
+          <p className="text-white text-lg mt-4">Your Email Address</p>
+          <input
+            className="p-2 w-36 h-6"
+            value={mail}
+            onChange={handleChangeEmail}
+          ></input>
+          <div className="error__button mt-4 border-white p-4">
+            <span
+              className="error__confirm border-white text-white p-4 text-lg"
+              onClick={onSaveEmail}
+            >
+              submit
+            </span>
+          </div>
+          <a
+            className="text-white mt-4 underline"
+            href="https://www.sindarin.tech/"
+          >
+            Go to Website
+          </a>
+        </div>
+      )}
       <div className="flex h-full p-4 ">
         <div className="w-[10%]"></div>
         <div className="w-[90%]">

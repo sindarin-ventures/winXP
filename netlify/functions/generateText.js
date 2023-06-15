@@ -20,7 +20,7 @@ const handler = async (event, context) => {
     const document = await collection.findOne({ ip: ip });
     const temp = new Date().getTime() - 5 * 60 * 1000;
     const late = await collection.find({ time: { $gte: temp } }).toArray();
-    console.log(late.length);
+
     if (late && late.length > 100)
       return {
         statusCode: 200,
@@ -28,24 +28,11 @@ const handler = async (event, context) => {
           'Try 1 mins later. Too many users at this moment.',
         ),
       };
-    if (document) {
-      await collection.findOneAndUpdate(
-        { ip: ip },
-        { $inc: { count: 1 } },
-        { new: true },
-      );
-      if (document.count > 30)
-        return {
-          statusCode: 200,
-          body: JSON.stringify('Count limited'),
-        };
-    } else {
-      await collection.insertOne({
-        ip: ip,
-        count: 1,
-        time: new Date().getTime(),
-      });
-    }
+    if (document && document.count > 30)
+      return {
+        statusCode: 200,
+        body: JSON.stringify('Count limited'),
+      };
 
     const message = datatext.map(i => {
       return { role: i.role, content: i.content };
@@ -57,6 +44,21 @@ const handler = async (event, context) => {
       messages: message,
     });
     const str = response.data.choices[0]?.message?.content;
+    const history = [...datatext, { role: 'bot', content: str }];
+    if (document)
+      await collection.findOneAndUpdate(
+        { ip: ip },
+        { $inc: { count: 1 }, $set: { history: history } },
+        { new: true },
+      );
+    else
+      await collection.insertOne({
+        ip: ip,
+        count: 1,
+        email: '',
+        time: new Date().getTime(),
+        history: history,
+      });
 
     return {
       statusCode: 200,
