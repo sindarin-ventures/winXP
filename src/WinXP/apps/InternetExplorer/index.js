@@ -165,11 +165,11 @@ function InternetExplorer({ onClose }) {
       </section>
       <div className="ie__content">
         <div className="ie__content__inner">
-          <video className="w-full h-full" autuplay>
+          <video className="w-full h-full" autuplay muted loop>
             <source
               src="https://www.youtube.com/watch?v=NL6CDFn2i3I"
               type="video/mp4"
-            />
+            ></source>
           </video>
         </div>
       </div>
