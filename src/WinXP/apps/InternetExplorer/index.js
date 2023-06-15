@@ -137,7 +137,7 @@ function InternetExplorer({ onClose }) {
         <div className="ie__address_bar__content">
           <img src={ie} alt="ie" className="ie__address_bar__content__img" />
           <div className="ie__address_bar__content__text">
-            {`https://www.google.com.tw${
+            {`https://www.youtube.com/watch?v=NL6CDFn2i3I${
               state.route === 'search'
                 ? `/search?q=${encodeURIComponent(state.query)}`
                 : ''
@@ -165,12 +165,12 @@ function InternetExplorer({ onClose }) {
       </section>
       <div className="ie__content">
         <div className="ie__content__inner">
-          <Google
-            route={state.route}
-            query={state.query}
-            onSearch={onSearch}
-            goMain={goMain}
-          />
+          <video className="w-full h-full" autuplay>
+            <source
+              src="https://www.youtube.com/watch?v=NL6CDFn2i3I"
+              type="video/mp4"
+            />
+          </video>
         </div>
       </div>
       <footer className="ie__footer">

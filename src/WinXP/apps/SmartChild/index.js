@@ -29,7 +29,7 @@ import loginsound from 'assets/sounds/loginsound.mp3';
 
 // add child div to capture mouse event when not focused
 
-function SmartChild({ onClose, isFocus }) {
+function SmartChild({ onGame, onExpression, isFocus }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
@@ -71,6 +71,12 @@ function SmartChild({ onClose, isFocus }) {
 
   const handleForeChange = event => {
     setForeColor(event.target.value);
+  };
+  const handleExpression = () => {
+    onExpression();
+  };
+  const handleGame = () => {
+    onGame();
   };
 
   const handleBackChange = event => {
@@ -439,11 +445,13 @@ function SmartChild({ onClose, isFocus }) {
                 src={expressionsIcon}
                 alt="expressions"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0"
+                onClick={handleExpression}
               />
               <img
                 src={gamesIcon}
                 alt="games"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0 "
+                onClick={handleGame}
               />
               <img
                 src={videoIcon}

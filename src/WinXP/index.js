@@ -1,5 +1,11 @@
 import reducer, { initState } from './reducers';
-import React, { useReducer, useRef, useCallback, useEffect } from 'react';
+import React, {
+  useReducer,
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import styled, { keyframes } from 'styled-components';
 import useMouse from 'react-use/lib/useMouse';
 import startUpSound from 'assets/sounds/windows-xp-startup.mp3';
@@ -30,9 +36,11 @@ import Icons from './Icons';
 import Login from './Login';
 import { DashedBox } from 'components';
 import welcomeImage from 'assets/welcome.png';
+import blueScreen from 'assets/bluescreen.png';
 
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
+  const [isBlueScreen, setIsBlueScreen] = useState(false);
   const ref = useRef(null);
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
@@ -208,6 +216,13 @@ function WinXP() {
       // });
     }
   }
+
+  function onExpression() {
+    dispatch({ type: ADD_APP, payload: appSettings['Internet Explorer'] });
+  }
+  function onGame() {
+    setIsBlueScreen(true);
+  }
   function onLogin() {
     dispatch({ type: CANCEL_LOGIN });
     new Audio(startUpSound).play();
@@ -248,6 +263,8 @@ function WinXP() {
         onMaximize={onMaximizeWindow}
         focusedAppId={focusedAppId}
         onSignIn={onSignIn}
+        onExpression={onExpression}
+        onGame={onGame}
       />
       {state.powerState === POWER_STATE.USER && <Login login={onLogin} />}
       {state.powerState !== POWER_STATE.WELCOME &&
@@ -267,6 +284,16 @@ function WinXP() {
           onClickButton={onClickModalButton}
           mode={state.powerState}
         />
+      )}
+      {isBlueScreen && (
+        <div className="w-full h-full absolute">
+          <img
+            src={blueScreen}
+            alt="bluescreen "
+            className="w-full h-full"
+            onClick={() => setIsBlueScreen(false)}
+          />
+        </div>
       )}
     </Container>
   );
