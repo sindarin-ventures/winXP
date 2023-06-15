@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { WindowDropDowns, Google } from 'components';
@@ -27,6 +27,7 @@ function InternetExplorer({ onClose }) {
     route: 'main',
     query: '',
   });
+  const videoRef = useRef(null);
   function onSearch(str) {
     if (str.length) {
       setState({
@@ -53,6 +54,9 @@ function InternetExplorer({ onClose }) {
       default:
     }
   }
+  useEffect(() => {
+    videoRef.current.play();
+  }, []);
   return (
     <Div>
       <section className="ie__toolbar">
@@ -165,11 +169,8 @@ function InternetExplorer({ onClose }) {
       </section>
       <div className="ie__content">
         <div className="ie__content__inner">
-          <video className="w-full h-full" autuplay muted loop>
-            <source
-              src="https://www.youtube.com/watch?v=NL6CDFn2i3I"
-              type="video/mp4"
-            ></source>
+          <video className="w-full h-full" autuplay muted ref={videoRef}>
+            <source src="video/video.mp4" type="video/mp4"></source>
           </video>
         </div>
       </div>

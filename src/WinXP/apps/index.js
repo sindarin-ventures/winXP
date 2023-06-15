@@ -182,7 +182,7 @@ export const appSettings = {
     },
     resizable: true,
     minimized: false,
-    maximized: window.innerWidth < 800,
+    maximized: true,
     multiInstance: true,
   },
   Minesweeper: {
