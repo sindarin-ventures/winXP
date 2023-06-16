@@ -15,6 +15,7 @@ function Windows({
   onSignIn,
   onExpression,
   onGame,
+  onWarn,
 }) {
   return (
     <div style={{ position: 'relative', zIndex: 0 }}>
@@ -31,6 +32,7 @@ function Windows({
           onSignIn={onSignIn}
           onExpression={onExpression}
           onGame={onGame}
+          onWarn={onWarn}
           {...app}
         />
       ))}
@@ -59,6 +61,7 @@ const Window = memo(function({
   onSignIn,
   onExpression,
   onGame,
+  onWarn,
 }) {
   function _onMouseDown() {
     onMouseDown(id);
@@ -151,6 +154,7 @@ const Window = memo(function({
           onSignIn: onSignIn,
           onExpression: onExpression,
           onGame: onGame,
+          onWarn: onWarn,
         })}
       </div>
     </div>

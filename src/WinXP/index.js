@@ -223,6 +223,9 @@ function WinXP() {
   function onGame() {
     setIsBlueScreen(true);
   }
+  function onWarn() {
+    dispatch({ type: ADD_APP, payload: appSettings.Winamp });
+  }
   function onLogin() {
     dispatch({ type: CANCEL_LOGIN });
     new Audio(startUpSound).play();
@@ -265,6 +268,7 @@ function WinXP() {
         onSignIn={onSignIn}
         onExpression={onExpression}
         onGame={onGame}
+        onWarn={onWarn}
       />
       {state.powerState === POWER_STATE.USER && <Login login={onLogin} />}
       {state.powerState !== POWER_STATE.WELCOME &&

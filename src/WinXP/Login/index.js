@@ -4,7 +4,7 @@ import logo1 from 'assets/login/logo (1).png';
 import group2 from 'assets/login/Group 2.png';
 import icon from 'assets/login/icon.png';
 import rectangle from 'assets/login/Rectangle 73 (1).png';
-
+import Clippy from 'components/Clippy';
 function Login({ login }) {
   function onLogin() {
     login();
@@ -23,6 +23,9 @@ function Login({ login }) {
             <div className="iconB"></div>
             <div className="user">
               <p>User</p>
+            </div>
+            <div className="relative w-0 h-0">
+              <Clippy />
             </div>
           </section>
         </div>

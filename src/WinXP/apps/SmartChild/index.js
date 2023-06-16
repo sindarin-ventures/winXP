@@ -29,7 +29,7 @@ import loginsound from 'assets/sounds/loginsound.mp3';
 
 // add child div to capture mouse event when not focused
 
-function SmartChild({ onGame, onExpression, isFocus }) {
+function SmartChild({ onGame, onExpression, onWarn, isFocus }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
@@ -125,7 +125,7 @@ function SmartChild({ onGame, onExpression, isFocus }) {
       '#ffffff',
     ];
     setChatHistory(newChatHistory);
-    if (data.trim() == 'Count limited') setIsLimit(true);
+    if (data.trim() === 'Count limited') setIsLimit(true);
     /*if (response.data.choices[0]?.text)
           setTotalText(totalText.concat("A:", response.data.choices[0]?.text));*/
     setLength(length + 1);
@@ -174,6 +174,12 @@ function SmartChild({ onGame, onExpression, isFocus }) {
     if (event.key !== 'Enter' || inputValue === '') return;
 
     await addHistory(event);
+  };
+  const handleBlock = () => {
+    onWarn();
+  };
+  const handleWarn = () => {
+    onWarn();
   };
   useEffect(() => {
     if (isUserInputEnd === false) return;
@@ -432,11 +438,13 @@ function SmartChild({ onGame, onExpression, isFocus }) {
                 src={warningIcon}
                 alt="warning"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0 "
+                onClick={handleWarn}
               />
               <img
                 src={blockIcon}
                 alt="block"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0 "
+                onClick={handleBlock}
               />
               <div className="border-r-2 border-r-[#cfcdbebf]"></div>
             </div>
