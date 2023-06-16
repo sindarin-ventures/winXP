@@ -24,17 +24,12 @@ function Clippy({ startAfter = 2000, duration = 15000 }) {
       <Div show={show}>
         <div className="balloon__container">
           <button onClick={() => setShow(false)} className="balloon__close" />
-          <span className="balloon__header__text">Welcome back!</span>
-          <div className="flex flex-col">
-            <p className="balloon__text__first">It's been a while!</p>
-            <p className="balloon__text__second">Click here to get started.</p>
+          <div className="balloon__header">
+            <img className="balloon__header__img" src={clippy} alt="risk" />
+            <span className="balloon__header__text">Welcome back!</span>
           </div>
-
-          <img
-            className="w-[80px] h-[80px] absolute z-10 mt-6 -left-[30px] top-[35px] opacity-100"
-            src={clippy}
-            alt="risk"
-          />
+          <p className="balloon__text__first">It's been a while!</p>
+          <p className="balloon__text__second">Click here to get started.</p>
         </div>
       </Div>
     )
@@ -85,9 +80,12 @@ const Div = styled.div`
       position: absolute;
       display: block;
       bottom: -19px;
-      right: 15px;
+      right: 14px;
       width: 0;
       height: 0;
+      border-style: solid;
+      border-width: 0 19px 19px 0;
+      border-color: transparent black transparent transparent;
     }
     &:after {
       content: '';
@@ -97,6 +95,9 @@ const Div = styled.div`
       right: 15px;
       width: 0;
       height: 0;
+      border-style: solid;
+      border-width: 0 18px 18px 0;
+      border-color: transparent #ffffe1 transparent transparent;
     }
   }
   .balloon__close:hover {
@@ -143,6 +144,11 @@ const Div = styled.div`
     display: flex;
     align-items: center;
     font-weight: 700;
+  }
+  .balloon__header__img {
+    width: 50px;
+    height: 50px;
+    margin-right: 8px;
   }
   .balloon__text__first {
     margin: 5px 0 10px;
