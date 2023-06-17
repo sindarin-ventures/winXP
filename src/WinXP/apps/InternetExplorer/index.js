@@ -169,7 +169,7 @@ function InternetExplorer({ onClose }) {
       </section>
       <div className="ie__content">
         <div className="ie__content__inner">
-          <video className="w-full h-full" autuplay muted ref={videoRef}>
+          <video className="w-full h-full" autuplay ref={videoRef}>
             <source src="video/video.mp4" type="video/mp4"></source>
           </video>
         </div>
