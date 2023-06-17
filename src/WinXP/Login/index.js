@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo1 from 'assets/login/logo (1).png';
 import group2 from 'assets/login/Group 2.png';
@@ -6,6 +6,7 @@ import icon from 'assets/login/icon.png';
 import rectangle from 'assets/login/Rectangle 73 (1).png';
 import Clippy from 'components/Clippy';
 function Login({ login }) {
+  const [isHover, setIsHover] = useState(false);
   function onLogin() {
     login();
   }
@@ -19,9 +20,23 @@ function Login({ login }) {
         </div>
         <div className="line"></div>
         <div className="users">
-          <section className="crystal" onClick={onLogin}>
-            <div className="iconB"></div>
-            <div className="user">
+          <section
+            className="crystal"
+            onMouseEnter={() => {
+              setIsHover(true);
+            }}
+            onMouseLeave={() => {
+              setIsHover(false);
+            }}
+          >
+            <div
+              className={`${isHover ? 'opacity-100' : 'opacity-60'} iconB`}
+              onClick={onLogin}
+            ></div>
+            <div
+              className={`${isHover ? 'opacity-100' : 'opacity-60'} user`}
+              onClick={onLogin}
+            >
               <p>User</p>
             </div>
             <div className="relative w-0 h-0">
@@ -165,11 +180,7 @@ const Main = styled.div`
     border-radius: 4px;
   }
 
-  .users .crystal {
-    opacity: 0.6;
-  }
   .users .crystal:hover {
-    opacity: 1;
     border-color: #ffcc00;
     cursor: pointer;
   }

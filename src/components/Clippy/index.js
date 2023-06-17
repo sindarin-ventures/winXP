@@ -8,15 +8,8 @@ function Clippy({ startAfter = 2000, duration = 15000 }) {
   const [start, setStart] = useState(false);
   useEffect(() => {
     const openTimer = setTimeout(() => setStart(true), startAfter);
-    const fadeTimer = setTimeout(() => setShow(false), startAfter + duration);
-    const closeTimer = setTimeout(
-      () => setStart(false),
-      startAfter + duration + 100000,
-    );
     return () => {
       clearTimeout(openTimer);
-      clearTimeout(fadeTimer);
-      clearTimeout(closeTimer);
     };
   }, [startAfter, duration]);
   return (
