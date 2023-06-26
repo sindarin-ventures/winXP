@@ -6,6 +6,7 @@ import 'assets/clear.css';
 import 'assets/font.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import * as personaClient from './persona';
 import store from './store';
 import { Provider } from 'react-redux';
 
@@ -25,3 +26,5 @@ if (module.hot && !window.frameElement) {
     ReactDOM.render(<NextApp />, document.getElementById('root'));
   });
 }
+
+personaClient.init();
