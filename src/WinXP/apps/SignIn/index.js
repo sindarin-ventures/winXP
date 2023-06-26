@@ -36,17 +36,17 @@ function SignIn({ onSignIn, isFocus }) {
           <div className="mt-8 flex w-full justify-center text-center text-[16px]">
             {loadingState === 1 && (
               <p>
-                TrollThing <br /> 1.Connecting ...
+                Sk8erBoi <br /> 1.Connecting ...
               </p>
             )}
             {loadingState === 2 && (
               <p>
-                TrollThing <br /> 2.Verifying name and password ...
+                Sk8erBoi <br /> 2.Verifying name and password ...
               </p>
             )}
             {loadingState === 3 && (
               <p>
-                TrollThing <br /> 3.Starting services ...
+                Sk8erBoi <br /> 3.Starting services ...
               </p>
             )}
           </div>

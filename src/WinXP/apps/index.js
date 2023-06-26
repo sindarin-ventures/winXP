@@ -5,7 +5,7 @@ import MyComputer from './MyComputer';
 import Notepad from './Notepad';
 import Winamp from './Winamp';
 import Paint from './Paint';
-import SmartChild from './SmartChild';
+import SmarterChild from './SmarterChild';
 import SignIn from './SignIn';
 import iePaper from 'assets/windowsIcons/ie-paper.png';
 import ie from 'assets/windowsIcons/ie.png';
@@ -18,7 +18,8 @@ import notepadLarge from 'assets/windowsIcons/327(32x32).png';
 import winamp from 'assets/windowsIcons/winamp.png';
 import paintLarge from 'assets/windowsIcons/680(32x32).png';
 import paint from 'assets/windowsIcons/680(16x16).png';
-import smartChildIcon from 'assets/smartchild/logo.png';
+import smarterChildIcon from 'assets/smarterchild/logo-wave.svg';
+import aimIcon from 'assets/smarterchild/aim-icon.png';
 
 // const gen = () => {
 //   let id = -1;
@@ -158,9 +159,9 @@ export const defaultIconState = [
   },
   {
     id: 6,
-    icon: smartChildIcon,
-    title: 'SmartChild',
-    component: SmartChild,
+    icon: aimIcon,
+    title: 'AOL Instant Messenger',
+    component: SmarterChild,
     isFocus: false,
   },
 ];
@@ -302,12 +303,12 @@ export const appSettings = {
     maximized: window.innerWidth < 800,
     multiInstance: true,
   },
-  SmartChild: {
+  SmarterChild: {
     header: {
-      icon: smartChildIcon,
-      title: 'SmartChild',
+      icon: smarterChildIcon,
+      title: 'SmarterChild - Instant Message',
     },
-    component: SmartChild,
+    component: SmarterChild,
     defaultSize: {
       width: 700,
       height: 500,
@@ -325,7 +326,7 @@ export const appSettings = {
   },
   SignIn: {
     header: {
-      icon: smartChildIcon,
+      icon: smarterChildIcon,
       title: 'SignIn',
     },
     component: SignIn,
@@ -351,6 +352,6 @@ export {
   MyComputer,
   Notepad,
   Winamp,
-  SmartChild,
+  SmarterChild,
   SignIn,
 };

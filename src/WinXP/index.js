@@ -85,12 +85,12 @@ function WinXP() {
     const appSetting = Object.values(appSettings).find(
       setting => setting.component === component,
     );
-    if (appSetting.component.name === 'SmartChild') {
+    if (appSetting.component.name === 'SmarterChild') {
       if (navigator.userAgent.indexOf('Chrome') > -1) {
         if (localStorage.getItem('isLoggedIn') === 'true')
           dispatch({
             type: ADD_APP,
-            payload: appSettings.SmartChild,
+            payload: appSettings.SmarterChild,
           });
         else dispatch({ type: ADD_APP, payload: appSettings.SignIn });
 
@@ -105,7 +105,7 @@ function WinXP() {
             ...appSettings.Error,
             injectProps: {
               message:
-                'Your browser is not Chrome. Please use Chrome browser to start SmartcHild',
+                'Sorry, AIM requires Google Chrome right now. Please switch to Chrome to use AIM.',
             },
           },
         });
@@ -180,7 +180,7 @@ function WinXP() {
           setTimeout(() => {
             dispatch({
               type: ADD_APP,
-              payload: appSettings.SmartChild,
+              payload: appSettings.SmarterChild,
             });
           }, 1500);
         else
@@ -198,7 +198,7 @@ function WinXP() {
               ...appSettings.Error,
               injectProps: {
                 message:
-                  'Your browser is not Chrome. Please use Chrome browser to start SmartcHild',
+                  'Sorry, AIM requires Google Chrome right now. Please switch to Chrome to use AIM.',
               },
             },
           });
@@ -235,7 +235,7 @@ function WinXP() {
     //dispatch({ type: DEL_APP, payload: focusedAppId });
     dispatch({
       type: ADD_APP,
-      payload: appSettings.SmartChild,
+      payload: appSettings.SmarterChild,
     });
     localStorage.setItem('isLoggedIn', 'true');
   }

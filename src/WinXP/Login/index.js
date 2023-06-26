@@ -92,7 +92,7 @@ const Header = styled.div`
   }
 `;
 const Main = styled.div`
-  height: 75vh;
+  height: 80vh;
   background: radial-gradient(
     19.48% 42.48% at 10% 22.48%,
     #9cc0e9 0%,

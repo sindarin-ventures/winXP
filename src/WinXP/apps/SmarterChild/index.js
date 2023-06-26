@@ -2,34 +2,34 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import Picker from 'emoji-picker-react';
 import axios from 'axios';
-import addpeopleIcon from 'assets/smartchild/addpeople.png';
-import bgcolorIcon from 'assets/smartchild/bgcolor.png';
-import bigfontIcon from 'assets/smartchild/bigfont.png';
-import blockIcon from 'assets/smartchild/block.png';
-import boldIcon from 'assets/smartchild/bold.png';
-import colorIcon from 'assets/smartchild/color.png';
-import emoticonIcon from 'assets/smartchild/emoticon.png';
-import expressionsIcon from 'assets/smartchild/expressions.png';
-import gamesIcon from 'assets/smartchild/games.png';
-import italicIcon from 'assets/smartchild/italic.png';
-import linkIcon from 'assets/smartchild/link.png';
-import mailIcon from 'assets/smartchild/mail.png';
-import messageIcon from 'assets/smartchild/message.png';
-import normalfontIcon from 'assets/smartchild/normalfont.png';
-import peopleIcon from 'assets/smartchild/people.png';
-import sendIcon from 'assets/smartchild/send.png';
-import smallfontIcon from 'assets/smartchild/smallfont.png';
-import talkIcon from 'assets/smartchild/talk.png';
-import underlineIcon from 'assets/smartchild/underline.png';
-import videoIcon from 'assets/smartchild/video.png';
-import warningIcon from 'assets/smartchild/warning.png';
+import addpeopleIcon from 'assets/smarterchild/addpeople.png';
+import bgcolorIcon from 'assets/smarterchild/bgcolor.png';
+import bigfontIcon from 'assets/smarterchild/bigfont.png';
+import blockIcon from 'assets/smarterchild/block.png';
+import boldIcon from 'assets/smarterchild/bold.png';
+import colorIcon from 'assets/smarterchild/color.png';
+import emoticonIcon from 'assets/smarterchild/emoticon.png';
+import expressionsIcon from 'assets/smarterchild/expressions.png';
+import gamesIcon from 'assets/smarterchild/games.png';
+import italicIcon from 'assets/smarterchild/italic.png';
+import linkIcon from 'assets/smarterchild/link.png';
+import mailIcon from 'assets/smarterchild/mail.png';
+import messageIcon from 'assets/smarterchild/message.png';
+import normalfontIcon from 'assets/smarterchild/normalfont.png';
+import peopleIcon from 'assets/smarterchild/people.png';
+import sendIcon from 'assets/smarterchild/send.png';
+import smallfontIcon from 'assets/smarterchild/smallfont.png';
+import talkIcon from 'assets/smarterchild/talk.png';
+import underlineIcon from 'assets/smarterchild/underline.png';
+import videoIcon from 'assets/smarterchild/video.png';
+import warningIcon from 'assets/smarterchild/warning.png';
 import audioOut from 'assets/sounds/aim-outgoing.mp3';
 import audioIn from 'assets/sounds/aim-incoming.mp3';
 import loginsound from 'assets/sounds/loginsound.mp3';
 
 // add child div to capture mouse event when not focused
 
-function SmartChild({ onGame, onExpression, onWarn, isFocus }) {
+function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
@@ -499,4 +499,4 @@ function SmartChild({ onGame, onExpression, onWarn, isFocus }) {
   );
 }
 
-export default SmartChild;
+export default SmarterChild;
