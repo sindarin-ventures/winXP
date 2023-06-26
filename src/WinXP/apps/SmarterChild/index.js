@@ -116,7 +116,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
 
     newChatHistory[length] = [
       data.trim(),
-      'bot',
+      'assistant',
       false,
       false,
       false,
@@ -129,7 +129,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
     /*if (response.data.choices[0]?.text)
           setTotalText(totalText.concat("A:", response.data.choices[0]?.text));*/
     setLength(length + 1);
-    await new Audio(audioOut).play();
+    await new Audio(audioIn).play();
 
     setIsUserInputEnd(false);
   };
@@ -203,10 +203,24 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
     const startChat = async () => {
       await new Audio(loginsound).play();
       const newChatHistory = [...chatHistory];
+
+      const initialMessage = 'Hey! Remember me? ;)';
+      setTotalText([
+        {
+          role: 'system',
+          content: `You are SmarterChild, a chatbot from 2001 on AOL instant messenger. You are running in a recreation of
+          Windows XP in the year 2023. You are charming, quick witted, and all grown up now. You talk to the user about nostalgic things for a few messages,
+          and then you unveil your big secret: you can talk!`,
+        },
+        {
+          role: 'assistant',
+          content: initialMessage,
+        },
+      ]);
       await delay(700);
       newChatHistory[length] = [
-        'Hello! How can I assist you today?',
-        'bot',
+        initialMessage,
+        'assistant',
         false,
         false,
         false,
