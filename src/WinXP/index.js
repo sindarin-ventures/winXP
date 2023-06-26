@@ -37,6 +37,7 @@ import Login from './Login';
 import { DashedBox } from 'components';
 import welcomeImage from 'assets/welcome.png';
 import blueScreen from 'assets/bluescreen.png';
+import { startPersona } from '../persona';
 
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
@@ -223,6 +224,9 @@ function WinXP() {
   function onGame() {
     setIsBlueScreen(true);
   }
+  function onTalk() {
+    startPersona();
+  }
   function onWarn() {
     dispatch({ type: ADD_APP, payload: appSettings.Winamp });
   }
@@ -268,6 +272,7 @@ function WinXP() {
         onSignIn={onSignIn}
         onExpression={onExpression}
         onGame={onGame}
+        onTalk={onTalk}
         onWarn={onWarn}
       />
       {state.powerState === POWER_STATE.USER && <Login login={onLogin} />}

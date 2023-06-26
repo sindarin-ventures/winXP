@@ -15,6 +15,7 @@ function Windows({
   onSignIn,
   onExpression,
   onGame,
+  onTalk,
   onWarn,
 }) {
   return (
@@ -32,6 +33,7 @@ function Windows({
           onSignIn={onSignIn}
           onExpression={onExpression}
           onGame={onGame}
+          onTalk={onTalk}
           onWarn={onWarn}
           {...app}
         />
@@ -61,6 +63,7 @@ const Window = memo(function({
   onSignIn,
   onExpression,
   onGame,
+  onTalk,
   onWarn,
 }) {
   function _onMouseDown() {
@@ -154,6 +157,7 @@ const Window = memo(function({
           onSignIn: onSignIn,
           onExpression: onExpression,
           onGame: onGame,
+          onTalk: onTalk,
           onWarn: onWarn,
         })}
       </div>
