@@ -166,7 +166,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
     setChatHistory(newChatHistory);
     setLength(length + 1);
     setInputValue('');
-    await new Audio(audioIn).play();
+    await new Audio(audioOut).play();
     setIsUserInputEnd(true);
   };
 
@@ -216,7 +216,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
       ];
 
       setChatHistory(newChatHistory);
-      await new Audio(audioOut).play();
+      await new Audio(audioIn).play();
 
       setLength(length + 1);
       const res = await axios.get('https://geolocation-db.com/json/');
@@ -294,7 +294,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus }) {
                   ) : (
                     <div className="flex w-full gap-2">
                       <div className="flex justify-center text-[18px] text-blue-600">
-                        Bot:
+                        SmarterChild:
                       </div>
                       <div className="text-[18px]">{i[0]}</div>
                     </div>

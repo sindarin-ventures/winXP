@@ -19,7 +19,7 @@ import winamp from 'assets/windowsIcons/winamp.png';
 import paintLarge from 'assets/windowsIcons/680(32x32).png';
 import paint from 'assets/windowsIcons/680(16x16).png';
 import smarterChildIcon from 'assets/smarterchild/logo-wave.svg';
-import aimIcon from 'assets/smarterchild/aim-icon.png';
+import aimIcon from 'assets/smarterchild/aim-icon-1.svg';
 
 // const gen = () => {
 //   let id = -1;

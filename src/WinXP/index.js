@@ -237,7 +237,7 @@ function WinXP() {
       type: ADD_APP,
       payload: appSettings.SmarterChild,
     });
-    localStorage.setItem('isLoggedIn', 'true');
+    // localStorage.setItem('isLoggedIn', 'true');
   }
   return (
     <Container
