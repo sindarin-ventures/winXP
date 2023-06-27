@@ -22,8 +22,12 @@ const PersonaClient = props => {
   // Use handlers here
   useEffect(() => {
     if (personaClient && isReady && !didSetListeners) {
-      personaClient.on('user_speech_started', () => {});
-      personaClient.on('ai_speech_started', () => {});
+      personaClient.on('user_speech_started', () => {
+        props.onUserStartedSpeaking();
+      });
+      personaClient.on('ai_speech_started', () => {
+        props.onAIStartedSpeaking();
+      });
       personaClient.on('connect_error', error => {});
       personaClient.on('disconnected', () => {});
       personaClient.on('json', ({ detail }) => {

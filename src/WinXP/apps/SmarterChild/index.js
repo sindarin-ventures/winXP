@@ -2,7 +2,8 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import Picker from 'emoji-picker-react';
-import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
+
+import { useRiveStateMachine } from './RiveComponent';
 import axios from 'axios';
 import addpeopleIcon from 'assets/smarterchild/addpeople.png';
 import bgcolorIcon from 'assets/smarterchild/bgcolor.png';
@@ -29,6 +30,7 @@ import audioOut from 'assets/sounds/aim-outgoing.mp3';
 import audioIn from 'assets/sounds/aim-incoming.mp3';
 import loginsound from 'assets/sounds/loginsound.mp3';
 import personaAnimation from 'assets/animations/v02.riv';
+
 
 // add child div to capture mouse event when not focused
 
@@ -62,7 +64,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
   const [foreColor, setForeColor] = useState('#000000');
   const [backColor, setBackColor] = useState('#ffffff');
   const [islimit, setIsLimit] = useState(false);
-  const [isTalking, setIsTalking] = useState(true);
+  const [isTalking, setIsTalking] = useState(false);
   const [mail, setMail] = useState('');
   const divRef = useRef();
 
@@ -249,37 +251,30 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
     startChat();
   }, []);
 
-  const { rive, RiveComponent } = useRive({
+  
+  const { RiveComponent, transitionToListening, transitionToThinking, transitionToSpeaking, transitionToSuccessfulResponse, transitionToFailResponse, transitionToIdle } = useRiveStateMachine({
     src: personaAnimation,
-    stateMachines: 'State Machine 1',
+    stateMachineName: 'State Machine 1',
     autoplay: true,
   });
 
-  const stateMachineName = 'State Machine 1';
-  const startingInputName = 'Thinking'; // replace with the actual name of an input
-  const startingInput = useStateMachineInput(rive, stateMachineName, startingInputName);
+    // Transition to listening state:
+    transitionToListening();
 
-
-  const listeningInput = useStateMachineInput(rive, stateMachineName, 'Listening');
-  const idleInput = useStateMachineInput(rive, stateMachineName, 'Idle');
-  const thinkingInput = useStateMachineInput(rive, stateMachineName, 'Thinking');
-  const speakingInput = useStateMachineInput(rive, stateMachineName, 'Speaking');
-  const successfulResponseInput = useStateMachineInput(rive, stateMachineName, 'Response / successful');
-  const failResponseInput = useStateMachineInput(rive, stateMachineName, 'Response / fail');
-
-  useEffect(() => {
-    if (rive) {
-      console.log(rive); // log the Rive object
-      // check if the state machine exists
-      
-    }
+    // Transition to thinking state:
+    transitionToThinking();
   
-    if (startingInput) {
-      console.log('input', startingInput)
-      startingInput.value = true;
-      // input.fire();
-    }
-  }, [rive, startingInput]);
+    // Transition to speaking state:
+    transitionToSpeaking();
+
+    // Transition to successful response state:
+    transitionToSuccessfulResponse();
+
+    // Transition to fail response state:
+    // transitionToFailResponse();
+
+    // Transition to idle state:
+    transitionToIdle();
 
   return (
     <div
@@ -320,22 +315,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
         </div>
       )}
       {isTalking ? (
-        <RiveComponent
-          onMouseEnter={() => {
-            console.log('mouse enter')
-            // listeningInput.value = true;
-            listeningInput.fire();
-          }}
-          onMouseLeave={() => {
-            console.log('mouse leave')
-            // listeningInput.value = false;
-            thinkingInput.fire();
-          }}
-          onClick={() => {
-            console.log('click')
-            speakingInput.fire();
-          }}
-        />
+        <RiveComponent />
       ) : (
         <div className="flex h-full p-4 ">
           <div className="w-[10%]"></div>
