@@ -35,13 +35,15 @@ import Windows from './Windows';
 import Icons from './Icons';
 import Login from './Login';
 import { DashedBox } from 'components';
+import errorSound from 'assets/sounds/error.mp3';
 import welcomeImage from 'assets/welcome.png';
 import blueScreen from 'assets/bluescreen.png';
-import { startPersona } from '../persona';
+import PersonaClient from './PersonaClient';
 
 function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
   const [isBlueScreen, setIsBlueScreen] = useState(false);
+  const [shouldStartPersona, setShouldStartPersona] = useState(false);
   const ref = useRef(null);
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
@@ -221,11 +223,14 @@ function WinXP() {
   function onExpression() {
     dispatch({ type: ADD_APP, payload: appSettings['Internet Explorer'] });
   }
-  function onGame() {
+  async function onGame() {
     setIsBlueScreen(true);
+    await new Audio(errorSound).play();
   }
   function onTalk() {
-    startPersona();
+    if (!shouldStartPersona) {
+      setShouldStartPersona(true);
+    }
   }
   function onWarn() {
     dispatch({ type: ADD_APP, payload: appSettings.Winamp });
@@ -243,6 +248,7 @@ function WinXP() {
     });
     // localStorage.setItem('isLoggedIn', 'true');
   }
+
   return (
     <Container
       ref={ref}
@@ -294,6 +300,12 @@ function WinXP() {
           mode={state.powerState}
         />
       )}
+      <PersonaClient
+        shouldStartPersona={shouldStartPersona}
+        onGame={onGame}
+        onExpression={onExpression}
+        onWarn={onWarn}
+      />
       {isBlueScreen && (
         <div className="w-full h-full absolute">
           <img

@@ -213,7 +213,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
           role: 'system',
           content: `You are SmarterChild, a chatbot from 2001 on AOL instant messenger. You are running in a recreation of
           Windows XP in the year 2023. You are charming, quick witted, and all grown up now. You talk to the user about nostalgic things for a few messages,
-          and then you unveil your big secret: you can talk! But make sure to surreptitiously guide the user to turn up their volume first.`,
+          and then you unveil your big secret: you can talk! But make sure to surreptitiously guide the user to turn up their volume first, and once they've done that, instruct them to press the "talk" button.`,
         },
         {
           role: 'assistant',
@@ -455,13 +455,13 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
                 src={warningIcon}
                 alt="warning"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0 "
-                onClick={handleWarn}
+                // onClick={handleWarn}
               />
               <img
                 src={blockIcon}
                 alt="block"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0 "
-                onClick={handleBlock}
+                // onClick={handleBlock}
               />
               <div className="border-r-2 border-r-[#cfcdbebf]"></div>
             </div>
@@ -470,13 +470,13 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
                 src={expressionsIcon}
                 alt="expressions"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0"
-                onClick={handleExpression}
+                // onClick={handleExpression}
               />
               <img
                 src={gamesIcon}
                 alt="games"
                 className="h-16 grayscale hover:shadow-[1px_1px_0px_1px_#4a5568] hover:grayscale-0 "
-                onClick={handleGame}
+                // onClick={handleGame}
               />
               <img
                 src={videoIcon}
