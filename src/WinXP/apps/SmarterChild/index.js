@@ -34,7 +34,7 @@ import personaAnimation from 'assets/animations/v02.riv';
 
 // add child div to capture mouse event when not focused
 
-function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
+function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMachineReady }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
@@ -86,6 +86,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
   };
   const handleTalk = () => {
     onTalk();
+    // setIsTalking(true);
   };
 
   const handleBackChange = event => {
@@ -252,30 +253,27 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk }) {
   }, []);
 
   
-  const { RiveComponent, transitionToListening, transitionToThinking, transitionToSpeaking, transitionToSuccessfulResponse, transitionToFailResponse, transitionToIdle } = useRiveStateMachine({
+  const { rive, RiveComponent, transitionToListening, transitionToThinking, transitionToSpeaking, transitionToSuccessfulResponse, transitionToFailResponse, transitionToIdle } = useRiveStateMachine({
     src: personaAnimation,
     stateMachineName: 'State Machine 1',
     autoplay: true,
   });
 
-    // Transition to listening state:
-    transitionToListening();
+  useEffect(() => {
+    if (RiveComponent && transitionToListening && transitionToThinking && transitionToSpeaking && transitionToSuccessfulResponse && transitionToFailResponse && transitionToIdle) {
+      // console.log('state machine ready')
+      onStateMachineReady({
+        transitionToListening,
+        transitionToThinking,
+        transitionToSpeaking,
+        transitionToSuccessfulResponse,
+        transitionToFailResponse,
+        transitionToIdle,        
+      });
+    }
+  }, [RiveComponent, transitionToListening, transitionToThinking, transitionToSpeaking, transitionToSuccessfulResponse, transitionToFailResponse, transitionToIdle]);
 
-    // Transition to thinking state:
-    transitionToThinking();
-  
-    // Transition to speaking state:
-    transitionToSpeaking();
-
-    // Transition to successful response state:
-    transitionToSuccessfulResponse();
-
-    // Transition to fail response state:
-    // transitionToFailResponse();
-
-    // Transition to idle state:
-    transitionToIdle();
-
+  // console.log('rive', rive)
   return (
     <div
       style={{

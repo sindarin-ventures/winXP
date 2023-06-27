@@ -1,4 +1,12 @@
+/* eslint-disable prettier/prettier */
+import { current } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
+
+let latestEvent = null;
+let currentState = 'Idle';
+let desiredState = 'Idle';
+let transitioning = false;  // Added this new flag
+let stateTransitionChain = ['Idle', 'Listening', 'Thinking', 'Speaking', 'SuccessfulResponse'];
 
 const PersonaClient = props => {
   const [personaClient, setPersonaClient] = useState(null);
@@ -19,15 +27,59 @@ const PersonaClient = props => {
     document.head.appendChild(script);
   }, []);
 
-  // Use handlers here
   useEffect(() => {
+    const gotoFinalState = async () => {
+      console.log('gotoFinalState', latestEvent)
+      console.log('currentState', currentState)
+      if (!latestEvent) {
+        return;
+      }
+      
+      if (latestEvent === currentState) {
+        return;
+      }
+
+      while (latestEvent !== currentState) {
+        const nextIdx = stateTransitionChain.indexOf(currentState) + 1 > stateTransitionChain.length ? 0 : stateTransitionChain.indexOf(currentState) + 1;
+        const nextStateName = stateTransitionChain[nextIdx];
+        console.log('nextStateName', nextStateName)
+        props.stateMachineControls[`transitionTo${nextStateName}`]();
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        currentState = nextStateName;
+      }
+
+
+    };
+
+    const handleEvent = (newState) => {
+      latestEvent = newState;
+      gotoFinalState();
+    }
+    
+    
+    
+
     if (personaClient && isReady && !didSetListeners) {
       personaClient.on('user_speech_started', () => {
-        props.onUserStartedSpeaking();
+        // console.log('user_speech_started')
+        // handleEvent('Listening');
       });
+
+      personaClient.on('user_speech_ended', () => {
+        // console.log('user_speech_ended')
+        // handleEvent('Thinking');
+      });
+
       personaClient.on('ai_speech_started', () => {
-        props.onAIStartedSpeaking();
+        // console.log('ai_speech_started')
+        // handleEvent('Speaking');
       });
+
+      personaClient.on('ai_speech_stopped', () => {
+        // console.log('ai_speech_stopped')
+        // handleEvent('Idle');
+      });
+
       personaClient.on('connect_error', error => {});
       personaClient.on('disconnected', () => {});
       personaClient.on('json', ({ detail }) => {
@@ -66,7 +118,7 @@ const PersonaClient = props => {
       personaClient.init(character).then(() => {
         console.log('personaClient initialized');
         personaClient.on('ready', () => {
-          personaClient.sayText(`Hah hey! That tickles!!!`);
+          personaClient.sayText(`Hey! Can you hear me?!`);
           setIsReady(true);
         });
       });

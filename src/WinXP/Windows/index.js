@@ -17,6 +17,7 @@ function Windows({
   onGame,
   onTalk,
   onWarn,
+  onStateMachineReady,
 }) {
   return (
     <div style={{ position: 'relative', zIndex: 0 }}>
@@ -35,6 +36,7 @@ function Windows({
           onGame={onGame}
           onTalk={onTalk}
           onWarn={onWarn}
+          onStateMachineReady={onStateMachineReady}
           {...app}
         />
       ))}
@@ -65,6 +67,7 @@ const Window = memo(function({
   onGame,
   onTalk,
   onWarn,
+  onStateMachineReady,
 }) {
   function _onMouseDown() {
     onMouseDown(id);
@@ -159,6 +162,7 @@ const Window = memo(function({
           onGame: onGame,
           onTalk: onTalk,
           onWarn: onWarn,
+          onStateMachineReady: onStateMachineReady,
         })}
       </div>
     </div>

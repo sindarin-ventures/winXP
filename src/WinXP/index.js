@@ -44,6 +44,8 @@ function WinXP() {
   const [state, dispatch] = useReducer(reducer, initState);
   const [isBlueScreen, setIsBlueScreen] = useState(false);
   const [shouldStartPersona, setShouldStartPersona] = useState(false);
+  const [stateMachineControls, setStateMachineControls] = useState(null);
+
   const ref = useRef(null);
   const mouse = useMouse(ref);
   const focusedAppId = getFocusedAppId();
@@ -249,6 +251,18 @@ function WinXP() {
     localStorage.setItem('isLoggedIn', 'true');
   }
 
+  const handleStateMachineReady = controls => {
+    setStateMachineControls(controls);
+  };
+
+  // Now you can use the state machine controls in your parent component
+  // useEffect(() => {
+  //   if (stateMachineControls) {
+  //     console.log('stateMachineControls', stateMachineControls);
+  //     stateMachineControls.transitionToListening();
+  //   }
+  // }, [stateMachineControls]);
+
   return (
     <Container
       ref={ref}
@@ -280,6 +294,7 @@ function WinXP() {
         onGame={onGame}
         onTalk={onTalk}
         onWarn={onWarn}
+        onStateMachineReady={handleStateMachineReady}
       />
       {state.powerState === POWER_STATE.USER && <Login login={onLogin} />}
       {state.powerState !== POWER_STATE.WELCOME &&
@@ -305,6 +320,7 @@ function WinXP() {
         onGame={onGame}
         onExpression={onExpression}
         onWarn={onWarn}
+        stateMachineControls={stateMachineControls}
       />
       {isBlueScreen && (
         <div className="w-full h-full absolute">
