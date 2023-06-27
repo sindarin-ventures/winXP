@@ -2239,6 +2239,18 @@
     "redux-thunk" "^2.4.2"
     "reselect" "^4.1.8"
 
+"@rive-app/canvas@1.2.1":
+  "integrity" "sha512-udDH8al7ra9F7zBc3kzseEVa+9znucqfRtLPAPfXNNq/xfeGdvXCwWj7Vu5lFe0fJ76slKYtxUZIxp5LkiPVYw=="
+  "resolved" "https://registry.npmjs.org/@rive-app/canvas/-/canvas-1.2.1.tgz"
+  "version" "1.2.1"
+
+"@rive-app/react-canvas@^3.0.54":
+  "integrity" "sha512-jhgUeSKph3mF0nOyJs84L8u7eStRKX2tgxVgLZBB4+YLQfm4Tx9ZruYiiihtTeVU/dR0u1qav9P66rvr9keFyQ=="
+  "resolved" "https://registry.npmjs.org/@rive-app/react-canvas/-/react-canvas-3.0.54.tgz"
+  "version" "3.0.54"
+  dependencies:
+    "@rive-app/canvas" "1.2.1"
+
 "@rollup/plugin-babel@^5.2.0":
   "integrity" "sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q=="
   "resolved" "https://registry.npmjs.org/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz"
