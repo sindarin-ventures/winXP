@@ -1,12 +1,12 @@
 let personaClient;
 
 export async function init() {
-  console.log('loading persona client')
+  console.log('loading persona client');
   var script = document.createElement('script');
   script.src = 'https://app.sindarin.tech/PersonaClientPublic?apikey=abc';
 
   script.addEventListener('load', async () => {
-    console.log('persona client loaded')
+    console.log('persona client loaded');
     const apiKey = 'abc';
     personaClient = new window.PersonaClient(apiKey);
   });
@@ -14,7 +14,7 @@ export async function init() {
 }
 
 export async function startPersona() {
-  console.log('starting persona client')
+  console.log('starting persona client');
   const character = 'SmarterChild';
   await personaClient.init(character);
   console.log('personaClient initialized');
