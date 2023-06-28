@@ -24,6 +24,7 @@ import cd from 'assets/windowsIcons/111(48x48).png';
 import dropdown from 'assets/windowsIcons/dropdown.png';
 import pullup from 'assets/windowsIcons/pullup.png';
 import logo from 'assets/github-logo.png';
+import sindarinlogo from 'assets/sindarin-logo.jpg';
 import mine from 'assets/minesweeper/mine-icon.png';
 import windows from 'assets/windowsIcons/windows.png';
 
@@ -335,10 +336,23 @@ function MyComputer({ onClose }) {
               </div>
             </div>
             <div className="com__content__right__card com__content__right__card--me">
-              <div className="com__content__right__card__header">
-                About Me :)
-              </div>
+              <div className="com__content__right__card__header">Credits</div>
               <div className="com__content__right__card__content">
+                <ga.OutboundLink
+                  eventLabel="https://sindarin.tech/"
+                  to="https://sindarin.tech/"
+                  className="com__content__right__card__item--me"
+                  target="_blank"
+                >
+                  <img
+                    className="com__content__right__card__img"
+                    src={sindarinlogo}
+                    alt="control"
+                  />
+                  <div className="com__content__right__card__text">
+                    Sindarin Ventures<br></br>(SmarterChild)
+                  </div>
+                </ga.OutboundLink>
                 <ga.OutboundLink
                   eventLabel="https://github.com/ShizukuIchi"
                   to="https://github.com/ShizukuIchi"
@@ -350,7 +364,9 @@ function MyComputer({ onClose }) {
                     src={logo}
                     alt="control"
                   />
-                  <div className="com__content__right__card__text">Github</div>
+                  <div className="com__content__right__card__text">
+                    Original Project (WinXP)
+                  </div>
                 </ga.OutboundLink>
                 <ga.OutboundLink
                   eventLabel="https://sh1zuku.csie.io"
@@ -364,7 +380,7 @@ function MyComputer({ onClose }) {
                     alt="control"
                   />
                   <div className="com__content__right__card__text">
-                    My Website
+                    sh1zuku (WinXP)
                   </div>
                 </ga.OutboundLink>
               </div>
