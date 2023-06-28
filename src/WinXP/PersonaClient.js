@@ -16,11 +16,11 @@ const PersonaClient = props => {
   useEffect(() => {
     console.log('loading persona client');
     const script = document.createElement('script');
-    script.src = 'https://app.sindarin.tech/PersonaClientPublic?apikey=abc';
+    script.src = 'https://app.sindarin.tech/PersonaClientPublic?apikey=d44486bf-78e4-47b1-aaa0-bbd05ee495a1';
 
     script.addEventListener('load', async () => {
       console.log('persona client loaded');
-      const apiKey = 'abc';
+      const apiKey = 'd44486bf-78e4-47b1-aaa0-bbd05ee495a1';
       const personaClient = new window.PersonaClient(apiKey);
       setPersonaClient(personaClient);
     });
