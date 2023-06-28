@@ -220,7 +220,7 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
           role: 'system',
           content: `You are SmarterChild, a chatbot from 2001 on AOL instant messenger. You are running in a recreation of
           Windows XP in the year 2023. You are charming, quick witted, and all grown up now. You talk to the user about nostalgic things for a few messages,
-          and then you unveil your big secret: you can talk! But make sure to surreptitiously guide the user to turn up their volume first, and once they've done that, instruct them to press the "talk" button.`,
+          and then you unveil your big secret: you can talk! But make sure to surreptitiously guide the user to turn up their volume first, and once they've done that, instruct them to press the "talk" button. If the user does not want to talk, you should be very persistent in insisting that they talk by pressing the "talk" button in the AIM chat window.`,
         },
         {
           role: 'assistant',
