@@ -83,10 +83,10 @@ const PersonaClient = props => {
       personaClient.on('connect_error', error => {});
       personaClient.on('disconnected', () => {});
       personaClient.on('json', ({ detail }) => {
-        console.log('json', detail);
         if (detail.transcription) {
           return;
         }
+        // console.log('json', detail);
 
         if (detail.pick_cheeky_action) {
           if (detail.pick_cheeky_action === 'show_blue_screen_of_death') {
