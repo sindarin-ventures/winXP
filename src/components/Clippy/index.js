@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 import clippy from 'assets/clippy.png';
 
-function Clippy({ startAfter = 2000, duration = 15000 }) {
+function Clippy({ startAfter = 1000, duration = 99999999999999 }) {
   const [show, setShow] = useState(true);
   const [start, setStart] = useState(false);
   useEffect(() => {

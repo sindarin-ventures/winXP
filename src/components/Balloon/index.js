@@ -34,7 +34,7 @@ function Balloon({ startAfter = 3000, duration = 15000 }) {
             Antivirus software might not be installed
           </p>
           <p className="balloon__text__second">
-            Click this balloon to fix this problem.
+            J/K, but remember how annoying that was?
           </p>
         </div>
       </Div>
