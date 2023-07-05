@@ -12,6 +12,7 @@ const PersonaClient = props => {
   const [personaClient, setPersonaClient] = useState(null);
   const [isReady, setIsReady] = useState(false);
   const [didSetListeners, setDidSetListeners] = useState(false);
+  const [didStartPersona, setDidStartPersona] = useState(false);
 
   useEffect(() => {
     console.log('loading persona client');
@@ -112,18 +113,20 @@ const PersonaClient = props => {
 
   // startPersona function
   useEffect(() => {
-    if (personaClient && props.shouldStartPersona) {
+    if (personaClient && props.shouldStartPersona && !didStartPersona) {
+      setDidStartPersona(true);
       console.log('starting persona client');
       const character = 'SmarterChild';
       personaClient.init(character).then(() => {
         console.log('personaClient initialized');
         personaClient.on('ready', () => {
           personaClient.sayText(`Hey! Can you hear me?!`);
+          props.onReady();
           setIsReady(true);
         });
       });
     }
-  }, [personaClient, props.shouldStartPersona]);
+  }, [personaClient, props.shouldStartPersona, props.onReady, didStartPersona]);
 
   return null; // or return UI elements if needed
 };

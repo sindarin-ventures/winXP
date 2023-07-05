@@ -138,7 +138,7 @@ const Div = styled.div`
     font-weight: 700;
   }
   .balloon__text__first {
-    margin: 5px 0 10px;
+    margin: 5px 0 4px;
   }
 `;
 export default Clippy;

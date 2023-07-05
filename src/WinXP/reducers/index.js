@@ -14,6 +14,7 @@ import {
   END_SELECT,
   POWER_OFF,
   CANCEL_POWER_OFF,
+  PERSONA_READY,
   CANCEL_LOGIN,
   RESTART,
   DEL_APP_COMPONENT,
@@ -27,6 +28,7 @@ export const initState = {
   focusing: FOCUSING.WINDOW,
   icons: [],
   selecting: false,
+  personaIsReady: false,
   powerState:
     localStorage.getItem('isLoggedIn') === 'true'
       ? POWER_STATE.START
@@ -184,6 +186,11 @@ const reducer = (state = initState, action = { type: '' }) => {
       return {
         ...state,
         powerState: POWER_STATE.START,
+      };
+    case PERSONA_READY:
+      return {
+        ...state,
+        personaIsReady: true,
       };
     case CANCEL_LOGIN:
       return {

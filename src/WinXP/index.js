@@ -23,6 +23,7 @@ import {
   END_SELECT,
   POWER_OFF,
   CANCEL_POWER_OFF,
+  PERSONA_READY,
   CANCEL_LOGIN,
   RESTART,
   DEL_APP_COMPONENT,
@@ -222,6 +223,10 @@ function WinXP() {
     }
   }
 
+  function onReady() {
+    dispatch({ type: PERSONA_READY });
+  }
+
   function onExpression() {
     dispatch({ type: ADD_APP, payload: appSettings['Internet Explorer'] });
   }
@@ -230,6 +235,7 @@ function WinXP() {
     await new Audio(errorSound).play();
   }
   function onTalk() {
+    console.log('onTalk');
     if (!shouldStartPersona) {
       setShouldStartPersona(true);
     }
@@ -291,9 +297,11 @@ function WinXP() {
         focusedAppId={focusedAppId}
         onSignIn={onSignIn}
         onExpression={onExpression}
+        personaIsReady={state.personaIsReady}
         onGame={onGame}
         onTalk={onTalk}
         onWarn={onWarn}
+        onReady={onReady}
         onStateMachineReady={handleStateMachineReady}
       />
       {state.powerState === POWER_STATE.USER && <Login login={onLogin} />}
@@ -320,6 +328,7 @@ function WinXP() {
         onGame={onGame}
         onExpression={onExpression}
         onWarn={onWarn}
+        onReady={onReady}
         stateMachineControls={stateMachineControls}
       />
       {isBlueScreen && (

@@ -34,7 +34,7 @@ import personaAnimation from 'assets/animations/v02.riv';
 
 // add child div to capture mouse event when not focused
 
-function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMachineReady }) {
+function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMachineReady, personaIsReady }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
@@ -65,6 +65,8 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
   const [backColor, setBackColor] = useState('#ffffff');
   const [islimit, setIsLimit] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
+  const [isLoadingPersona, setIsLoadingPersona] = useState(false);
+  // const [isPersonaLoaded, setIsPersonaLoaded] = useState(false);
   const [mail, setMail] = useState('');
   const divRef = useRef();
 
@@ -85,8 +87,10 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
     onGame();
   };
   const handleTalk = () => {
+    console.log('handleTalk')
     onTalk();
     // setIsTalking(true);
+    setIsLoadingPersona(true);
   };
 
   const handleBackChange = event => {
@@ -272,6 +276,17 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
       });
     }
   }, [RiveComponent, transitionToListening, transitionToThinking, transitionToSpeaking, transitionToSuccessfulResponse, transitionToFailResponse, transitionToIdle]);
+
+  useEffect(() => {
+    if (personaIsReady) {
+      // console.log('isLoadingPersona')
+      if (isLoadingPersona) {
+        console.log('personaIsReady')
+        // setIsTalking(true);
+        setIsLoadingPersona(false);
+      }
+    }
+  }, [personaIsReady])
 
   // console.log('rive', rive)
   return (
@@ -469,11 +484,14 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
               </div>
 
               <input
-                placeholder="Input something ..."
+                placeholder={isLoadingPersona ? 'Preparing to speak...' :
+                  personaIsReady ? 'Speak with SmarterChild!'
+                  : "Type here to chat..."
+                }
                 value={inputValue}
                 type="text"
-                onChange={handleChange}
-                onKeyDown={handleEnter}
+                onChange={isLoadingPersona || personaIsReady ? null : handleChange}
+                onKeyDown={isLoadingPersona || personaIsReady ? null : handleEnter}
                 className={`${isBold ? 'font-bold' : ''} ${
                   isItalic ? 'italic' : 'not-italic'
                 } ${isUnderLine ? 'underline' : ''} mt-2 w-full p-2`}

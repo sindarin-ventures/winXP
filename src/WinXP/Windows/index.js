@@ -15,6 +15,7 @@ function Windows({
   onSignIn,
   onExpression,
   onGame,
+  personaIsReady,
   onTalk,
   onWarn,
   onStateMachineReady,
@@ -33,6 +34,7 @@ function Windows({
           isFocus={focusedAppId === app.id} // for styledWindow
           onSignIn={onSignIn}
           onExpression={onExpression}
+          personaIsReady={personaIsReady}
           onGame={onGame}
           onTalk={onTalk}
           onWarn={onWarn}
@@ -65,6 +67,7 @@ const Window = memo(function({
   onSignIn,
   onExpression,
   onGame,
+  personaIsReady,
   onTalk,
   onWarn,
   onStateMachineReady,
@@ -160,6 +163,7 @@ const Window = memo(function({
           onSignIn: onSignIn,
           onExpression: onExpression,
           onGame: onGame,
+          personaIsReady: personaIsReady,
           onTalk: onTalk,
           onWarn: onWarn,
           onStateMachineReady: onStateMachineReady,

@@ -3,7 +3,13 @@ import styled, { keyframes } from 'styled-components';
 
 import risk from 'assets/windowsIcons/229(16x16).png';
 
-function Balloon({ startAfter = 10000, duration = 15000 }) {
+function Balloon({
+  startAfter = 10000,
+  duration = 15000,
+  headerText = 'Your computer might be at risk',
+  textFirst = 'Antivirus software might not be installed',
+  textSecond = 'J/K, but remember how annoying that was?',
+}) {
   const [show, setShow] = useState(true);
   const [start, setStart] = useState(false);
   useEffect(() => {
@@ -26,16 +32,10 @@ function Balloon({ startAfter = 10000, duration = 15000 }) {
           <button onClick={() => setShow(false)} className="balloon__close" />
           <div className="balloon__header">
             <img className="balloon__header__img" src={risk} alt="risk" />
-            <span className="balloon__header__text">
-              Your computer might be at risk
-            </span>
+            <span className="balloon__header__text">{headerText}</span>
           </div>
-          <p className="balloon__text__first">
-            Antivirus software might not be installed
-          </p>
-          <p className="balloon__text__second">
-            J/K, but remember how annoying that was?
-          </p>
+          <p className="balloon__text__first">{textFirst}</p>
+          <p className="balloon__text__second">{textSecond}</p>
         </div>
       </Div>
     )

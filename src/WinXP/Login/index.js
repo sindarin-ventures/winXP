@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo1 from 'assets/login/logo (1).png';
 import group2 from 'assets/login/Group 2.png';
-import icon from 'assets/login/icon.png';
+import icon from 'assets/login/furby.jpeg';
+// import icon from 'assets/login/icon.png';
 import rectangle from 'assets/login/Rectangle 73 (1).png';
 import Clippy from 'components/Clippy';
 function Login({ login }) {
@@ -37,7 +38,7 @@ function Login({ login }) {
               className={`${isHover ? 'opacity-100' : 'opacity-60'} user`}
               onClick={onLogin}
             >
-              <p>User</p>
+              <p>Guest</p>
             </div>
             <div className="relative w-0 h-0">
               <Clippy />

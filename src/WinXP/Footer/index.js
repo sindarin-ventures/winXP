@@ -96,7 +96,23 @@ function Footer({
         <img className="footer__icon" src={usb} alt="" />
         <img className="footer__icon" src={risk} alt="" />
         <div style={{ position: 'relative', width: 0, height: 0 }}>
-          <Balloon />
+          {/* <Balloon /> */}
+          <Balloon
+            startAfter={30000}
+            duration={15000}
+            headerText={'Speak with SmarterChild!'}
+            textFirst={`Typing is so 2001.`}
+            textSecond={
+              'Press "talk" in the AIM window to have a *real* conversation with SmarterChild.'
+            }
+          />
+          <Balloon
+            startAfter={60000}
+            duration={15000}
+            headerText={'Ask about Easter Eggs!'}
+            textFirst={`Ask smarterchild about "easter eggs"\n\nto find out about hidden features in Windows XP.`}
+            textSecond={''}
+          />
         </div>
         <div className="footer__time">{time}</div>
       </div>

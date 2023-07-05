@@ -11,6 +11,7 @@ export const START_SELECT = 'START_SELECT';
 export const END_SELECT = 'END_SELECT';
 export const POWER_OFF = 'POWER_OFF';
 export const CANCEL_POWER_OFF = 'CANCEL_POWER_OFF';
+export const PERSONA_READY = 'PERSONA_READY';
 export const CANCEL_LOGIN = 'CANCEL_LOGIN';
 export const RESTART = 'RESTART';
 export const DEL_APP_COMPONENT = 'DEL_APP_COMPONENT';
