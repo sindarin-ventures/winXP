@@ -91,6 +91,22 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
     onTalk();
     // setIsTalking(true);
     setIsLoadingPersona(true);
+    setForeColor('#808080');
+    const newChatHistory = [...chatHistory];
+    const message = 'Preparing to speak...';
+    newChatHistory[length] = [
+      message,
+      'assistant',
+      false,
+      false,
+      false,
+      18,
+      '#808080',
+      '#ffffff',
+    ];
+    setChatHistory(newChatHistory);
+    setLength(length + 1);
+    setTotalText([...totalText, { role: 'assistant', content: message }]);
   };
 
   const handleBackChange = event => {
@@ -282,7 +298,21 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
       // console.log('isLoadingPersona')
       if (isLoadingPersona) {
         console.log('personaIsReady')
-        // setIsTalking(true);
+        const newChatHistory = [...chatHistory];
+        const message = 'You are speaking with SmarterChild!';
+        newChatHistory[length] = [
+          message,
+          'assistant',
+          false,
+          false,
+          false,
+          18,
+          '#808080',
+          '#ffffff',
+        ];
+        setChatHistory(newChatHistory);
+        setLength(length + 1);
+        setTotalText([...totalText, { role: 'assistant', content: message }]);
         setIsLoadingPersona(false);
       }
     }
@@ -365,7 +395,14 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
                         <div className="flex justify-center text-[18px] text-blue-600">
                           SmarterChild:
                         </div>
-                        <div className="text-[18px]">{i[0]}</div>
+                        <div
+                          className="text-[18px]"
+                          style={{
+                            fontSize: `${i[5]}px`,
+                            color: `${i[6]}`,
+                            backgroundColor: `${i[7]}`,
+                          }}
+                        >{i[0]}</div>
                       </div>
                     )),
                 )}
