@@ -46,6 +46,7 @@ function WinXP() {
   const [isBlueScreen, setIsBlueScreen] = useState(false);
   const [shouldStartPersona, setShouldStartPersona] = useState(false);
   const [stateMachineControls, setStateMachineControls] = useState(null);
+  const [isLimitReached, setIsLimitReached] = useState(false);
 
   const ref = useRef(null);
   const mouse = useMouse(ref);
@@ -223,6 +224,12 @@ function WinXP() {
     }
   }
 
+  function onLimitReached() {
+    if (!isLimitReached) {
+      setIsLimitReached(true);
+    }
+  }
+
   function onReady() {
     dispatch({ type: PERSONA_READY });
   }
@@ -297,6 +304,7 @@ function WinXP() {
         focusedAppId={focusedAppId}
         onSignIn={onSignIn}
         onExpression={onExpression}
+        isLimitReached={isLimitReached}
         personaIsReady={state.personaIsReady}
         onGame={onGame}
         onTalk={onTalk}
@@ -327,6 +335,7 @@ function WinXP() {
         shouldStartPersona={shouldStartPersona}
         onGame={onGame}
         onExpression={onExpression}
+        onLimitReached={onLimitReached}
         onWarn={onWarn}
         onReady={onReady}
         stateMachineControls={stateMachineControls}

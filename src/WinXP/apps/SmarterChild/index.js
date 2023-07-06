@@ -34,7 +34,7 @@ import personaAnimation from 'assets/animations/v02.riv';
 
 // add child div to capture mouse event when not focused
 
-function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMachineReady, personaIsReady }) {
+function SmarterChild({ onGame, onExpression, isLimitReached, onWarn, isFocus, onTalk, onStateMachineReady, personaIsReady }) {
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const defaultOneChat = [
     '',
@@ -328,19 +328,21 @@ function SmarterChild({ onGame, onExpression, onWarn, isFocus, onTalk, onStateMa
         backgroundColor: '#ece9d8',
       }}
     >
-      {islimit && (
+      {(islimit || isLimitReached) && (
         <div className="absolute h-full w-full bg-slate-700 z-10 flex flex-col justify-center items-center">
           <p className="text-white text-xl">
             You've hit your SmarterChild message limit!
           </p>
           <p className="text-white text-lg mt-4">
-            Enter your email address for more credits or updates:
+            Please enter your email address to keep chatting or stay updated:
           </p>
+          <br />
           <input
-            className="p-2 w-36 h-6"
+            className="p-2 w-64 h-6"
             value={mail}
             onChange={handleChangeEmail}
           ></input>
+          <br />
           <div className="error__button mt-4 border-white p-4">
             <span
               className="error__confirm border-white text-white p-4 text-lg"

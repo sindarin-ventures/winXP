@@ -14,6 +14,7 @@ function Windows({
   focusedAppId,
   onSignIn,
   onExpression,
+  isLimitReached,
   onGame,
   personaIsReady,
   onTalk,
@@ -34,6 +35,7 @@ function Windows({
           isFocus={focusedAppId === app.id} // for styledWindow
           onSignIn={onSignIn}
           onExpression={onExpression}
+          isLimitReached={isLimitReached}
           personaIsReady={personaIsReady}
           onGame={onGame}
           onTalk={onTalk}
@@ -66,6 +68,7 @@ const Window = memo(function({
   className,
   onSignIn,
   onExpression,
+  isLimitReached,
   onGame,
   personaIsReady,
   onTalk,
@@ -162,6 +165,7 @@ const Window = memo(function({
           ...injectProps,
           onSignIn: onSignIn,
           onExpression: onExpression,
+          isLimitReached: isLimitReached,
           onGame: onGame,
           personaIsReady: personaIsReady,
           onTalk: onTalk,
