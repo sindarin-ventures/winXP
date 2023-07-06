@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import Picker from 'emoji-picker-react';
+import { v4 as uuid } from 'uuid';
 
 import { useRiveStateMachine } from './RiveComponent';
 import axios from 'axios';
@@ -117,13 +118,32 @@ function SmarterChild({ onGame, onExpression, isLimitReached, onWarn, isFocus, o
     setInputValue(inputValue.concat(event.emoji));
     setShowEmojiPicker(false);
   };
+  
+  const getUserID = async () => {
+    try {
+      const res = await axios.get('https://geolocation-db.com/json/');
+
+      const userId = res.data.IPv4;
+      return userId.replace(/\./g, '_');
+    } catch (e) {
+      // use localstorage instead
+      const userId = localStorage.getItem('scuid');
+      if (userId) {
+        return userId;
+      } else {
+        const userId = uuid();
+        localStorage.setItem('scuid', userId);
+        return userId;
+      }
+    }
+  };
 
   const answerChat = async () => {
     // console.log("Answer Chat");
     const newChatHistory = [...chatHistory];
-    const res = await axios.get('https://geolocation-db.com/json/');
+    const userId = await getUserID();
 
-    setIpAddress(res.data.IPv4);
+    setIpAddress(userId);
     //const apiURL = '/.netlify/functions/generateText', {params: { datatext: totalText,}}
 
     /*const apiURL = `/.netlify/functions/generateText?datatext=${JSON.stringify(
@@ -263,9 +283,9 @@ function SmarterChild({ onGame, onExpression, isLimitReached, onWarn, isFocus, o
       await new Audio(audioIn).play();
 
       setLength(length + 1);
-      const res = await axios.get('https://geolocation-db.com/json/');
+      const userId = await getUserID();
 
-      setIpAddress(res.data.IPv4);
+      setIpAddress(userId);
 
       //setIsUserInputEnd(false);
     };

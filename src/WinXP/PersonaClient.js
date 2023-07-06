@@ -2,6 +2,7 @@
 import { current } from '@reduxjs/toolkit';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
 let latestEvent = null;
 let currentState = 'Idle';
@@ -122,10 +123,22 @@ const PersonaClient = props => {
   // startPersona function
   useEffect(() => {
     const getUserID = async () => {
-      const res = await axios.get('https://geolocation-db.com/json/');
-
-      const userId = res.data.IPv4;
-      return userId.replace(/\./g, '_');
+      try {
+        const res = await axios.get('https://geolocation-db.com/json/');
+  
+        const userId = res.data.IPv4;
+        return userId.replace(/\./g, '_');
+      } catch (e) {
+        // use localstorage instead
+        const userId = localStorage.getItem('scuid');
+        if (userId) {
+          return userId;
+        } else {
+          const userId = uuid();
+          localStorage.setItem('scuid', userId);
+          return userId;
+        }
+      }
     };
 
     if (personaClient && props.shouldStartPersona && !didStartPersona) {
