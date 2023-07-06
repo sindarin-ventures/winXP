@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo1 from 'assets/login/logo (1).png';
@@ -31,12 +32,12 @@ function Login({ login }) {
             }}
           >
             <div
-              className={`${isHover ? 'opacity-100' : 'opacity-60'} iconB`}
-              onClick={onLogin}
+              className={`${isHover && navigator.userAgent.indexOf('Chrome') > -1 ? 'opacity-100' : 'opacity-60'} iconB`}
+              onClick={navigator.userAgent.indexOf('Chrome') > -1 ? onLogin : () => {}}
             ></div>
             <div
-              className={`${isHover ? 'opacity-100' : 'opacity-60'} user`}
-              onClick={onLogin}
+              className={`${isHover && navigator.userAgent.indexOf('Chrome') > -1 ? 'opacity-100' : 'opacity-60'} user`}
+              onClick={navigator.userAgent.indexOf('Chrome') > -1 ? onLogin : () => {}}
             >
               <p>Guest</p>
             </div>

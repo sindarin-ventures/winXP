@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 
@@ -12,6 +13,8 @@ function Clippy({ startAfter = 1000, duration = 99999999999999 }) {
       clearTimeout(openTimer);
     };
   }, [startAfter, duration]);
+
+  
   return (
     start && (
       <Div show={show}>
@@ -19,8 +22,17 @@ function Clippy({ startAfter = 1000, duration = 99999999999999 }) {
           <button onClick={() => setShow(false)} className="balloon__close" />
           <span className="balloon__header__text">Welcome back!</span>
           <div className="flex flex-col">
-            <p className="balloon__text__first">It's been a while!</p>
-            <p className="balloon__text__second">Click here to get started.</p>
+            {
+              navigator.userAgent.indexOf('Chrome') > -1 ?
+              <p className="balloon__text__first">It's been a while!</p> :
+              <p className="balloon__text__first">This experience requires Google Chrome on desktop!</p>
+            }
+                        {
+              navigator.userAgent.indexOf('Chrome') > -1 ?
+              <p className="balloon__text__second">Click here to get started.</p> :
+              <p className="balloon__text__first">See you there!</p>
+            }
+            
           </div>
 
           <img
