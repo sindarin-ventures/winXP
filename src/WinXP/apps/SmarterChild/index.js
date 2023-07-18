@@ -254,7 +254,7 @@ function SmarterChild({ onGame, onExpression, isLimitReached, onWarn, isFocus, o
       await new Audio(loginsound).play();
       const newChatHistory = [...chatHistory];
 
-      const initialMessage = 'Hey! Remember me? ;)';
+      const initialMessage = 'Hey! Remember me? I was the original chatbot way back in 2001!';
       setTotalText([
         {
           role: 'system',
@@ -319,7 +319,7 @@ function SmarterChild({ onGame, onExpression, isLimitReached, onWarn, isFocus, o
       if (isLoadingPersona) {
         console.log('personaIsReady')
         const newChatHistory = [...chatHistory];
-        const message = 'You are speaking with SmarterChild!';
+        const message = `You are speaking with SmarterChild! If she starts talking too much, try turning down your volume or putting on headphones so she can't hear herself.`;
         newChatHistory[length] = [
           message,
           'assistant',
