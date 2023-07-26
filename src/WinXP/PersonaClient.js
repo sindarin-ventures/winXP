@@ -150,7 +150,6 @@ const PersonaClient = props => {
         personaClient.init(userId, character).then(() => {
           console.log('personaClient initialized');
           personaClient.on('ready', () => {
-            personaClient.sayText(`Hey! Can you hear me?!`);
             props.onReady();
             setIsReady(true);
           });
