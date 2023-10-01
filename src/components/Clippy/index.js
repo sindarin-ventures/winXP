@@ -23,12 +23,14 @@ function Clippy({ startAfter = 1000, duration = 99999999999999 }) {
           <span className="balloon__header__text">Welcome back!</span>
           <div className="flex flex-col">
             {
-              navigator.userAgent.indexOf('Chrome') > -1 ?
+              // navigator.userAgent.indexOf('Chrome') > -1 ?
+              true ?
               <p className="balloon__text__first">It's been a while!</p> :
               <p className="balloon__text__first">This experience requires Google Chrome on desktop!</p>
             }
                         {
-              navigator.userAgent.indexOf('Chrome') > -1 ?
+              // navigator.userAgent.indexOf('Chrome') > -1 ?
+              true ?
               <p className="balloon__text__second">Click here to get started.</p> :
               <p className="balloon__text__first">See you there!</p>
             }

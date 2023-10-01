@@ -32,12 +32,12 @@ function Login({ login }) {
             }}
           >
             <div
-              className={`${isHover && navigator.userAgent.indexOf('Chrome') > -1 ? 'opacity-100' : 'opacity-60'} iconB`}
-              onClick={navigator.userAgent.indexOf('Chrome') > -1 ? onLogin : () => {}}
+              className={`${isHover ? 'opacity-100' : 'opacity-60'} iconB`}
+              onClick={onLogin}
             ></div>
             <div
-              className={`${isHover && navigator.userAgent.indexOf('Chrome') > -1 ? 'opacity-100' : 'opacity-60'} user`}
-              onClick={navigator.userAgent.indexOf('Chrome') > -1 ? onLogin : () => {}}
+              className={`${isHover ? 'opacity-100' : 'opacity-60'} user`}
+              onClick={onLogin}
             >
               <p>Guest</p>
             </div>

@@ -93,7 +93,8 @@ function WinXP() {
       setting => setting.component === component,
     );
     if (appSetting.component.name === 'SmarterChild') {
-      if (navigator.userAgent.indexOf('Chrome') > -1) {
+      // if (navigator.userAgent.indexOf('Chrome') > -1) {
+      if (true) {
         if (localStorage.getItem('isLoggedIn') === 'true')
           dispatch({
             type: ADD_APP,
@@ -182,7 +183,8 @@ function WinXP() {
     if (state.powerState === POWER_STATE.START) {
       const userAgent = navigator.userAgent;
       dispatch({ type: ADD_ICON });
-      if (userAgent.indexOf('Chrome') > -1) {
+      // if (userAgent.indexOf('Chrome') > -1) {
+      if (true) {
         if (localStorage.getItem('isLoggedIn') === 'true')
           setTimeout(() => {
             dispatch({
