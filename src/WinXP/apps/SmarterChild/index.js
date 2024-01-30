@@ -349,34 +349,16 @@ function SmarterChild({ onGame, onExpression, isLimitReached, onWarn, isFocus, o
       }}
     >
       {(islimit || isLimitReached) && (
-        <div className="absolute h-full w-full bg-slate-700 z-10 flex flex-col justify-center items-center">
+        <div className="absolute h-full w-full bg-slate-700 z-50 flex flex-col justify-center items-center">
           <p className="text-white text-xl">
             You've hit your SmarterChild message limit!
           </p>
-          <p className="text-white text-lg mt-4">
-            Please enter your email address to keep chatting or stay updated:
-          </p>
-          <br />
-          <input
-            className="p-2 w-64 h-6"
-            value={mail}
-            onChange={handleChangeEmail}
-          ></input>
-          <br />
-          <div className="error__button mt-4 border-white p-4">
-            <span
-              className="error__confirm border-white text-white p-4 text-lg"
-              onClick={onSaveEmail}
-            >
-              submit
-            </span>
-          </div>
-          <a
-            className="text-white mt-4 underline"
-            href="https://www.sindarin.tech/"
-          >
-            Go to Website
-          </a>
+          <p className="mt-4 text-lg text-center text-white">
+              Please head to <a
+              className="mt-4 text-white underline"
+              href="https://www.sindarin.tech/"
+            >sindarin.tech</a> to sign up.
+            </p>
         </div>
       )}
       {isTalking ? (
