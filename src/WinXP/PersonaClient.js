@@ -19,7 +19,9 @@ const PersonaClient = props => {
   useEffect(() => {
     console.log('loading persona client');
     const script = document.createElement('script');
-    script.src = 'https://api.sindarin.tech/PersonaClientPublic?apikey=5b348906-a885-4cfb-9cba-b9eca4ff06bf';
+    // script.src = 'https://api.sindarin.tech/PersonaClientPublic?apikey=5b348906-a885-4cfb-9cba-b9eca4ff06bf';
+    script.src = 'https://api.prod.centralus.az.sindarin.tech/PersonaClientPublic?apikey=5b348906-a885-4cfb-9cba-b9eca4ff06bf';
+
     // script.src = 'http://localhost:3004/PersonaClientPublic?apikey=5b348906-a885-4cfb-9cba-b9eca4ff06bf';
 
     script.addEventListener('load', async () => {
@@ -86,7 +88,7 @@ const PersonaClient = props => {
 
       personaClient.on('connect_error', error => {});
       personaClient.on('disconnected', () => {});
-      personaClient.on('json', ({ detail }) => {
+      personaClient.on('action', ({ detail }) => {
 
         if (detail.transcription) {
           return;
@@ -147,7 +149,7 @@ const PersonaClient = props => {
       const character = 'SmarterChild';
 
       getUserID().then(userId => {
-        personaClient.init(userId, character).then(() => {
+        personaClient.init({userId, personaName: character}).then(() => {
           console.log('personaClient initialized');
           personaClient.on('ready', () => {
             props.onReady();
