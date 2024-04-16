@@ -151,10 +151,8 @@ const PersonaClient = props => {
       getUserID().then(userId => {
         personaClient.init({userId, personaName: character}).then(() => {
           console.log('personaClient initialized');
-          personaClient.on('ready', () => {
-            props.onReady();
-            setIsReady(true);
-          });
+          props.onReady();
+          setIsReady(true);
         }).catch(err => {
           console.log('personaClient init error', err);
           if (/You have/ig.test(err)) {
